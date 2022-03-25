@@ -28,6 +28,7 @@ Route::any('magazzino', 'HomeController@magazzino');
 
 
 Route::any('ordini', 'HomeController@ordini');
+Route::any('id_dotes/{id_dotes}', 'HomeController@id_dotes');
 Route::any('magazzino/attivo', 'HomeController@attivo');
 Route::any('magazzino/passivi', 'HomeController@passivi');
 Route::any('magazzino/altri', 'HomeController@altri');

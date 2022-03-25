@@ -455,7 +455,6 @@
 
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal" onclick="location.reload()">Chiudi</button>
-                        <button type="button" class="btn btn-primary" onclick="cerca_articolo_smart();">Carica Articolo</button>
                     </div>
                 </div>
             </form>

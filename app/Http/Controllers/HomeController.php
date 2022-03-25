@@ -275,22 +275,22 @@ class HomeController extends Controller{
         if(!session()->has('utente')) {
             return Redirect::to('login');
         }
-        $documenti = DB::select('SELECT * FROM DO WHERE Cd_Do in (\'OF\',\'BC\') and CliFor = \'F\'');
+        $documenti = DB::select('SELECT * FROM DO WHERE Cd_Do in (\'DCF\') and CliFor = \'F\'');
         return View::make('passivi',compact('documenti'));
     }
 
     public function attivo(){
 
-        $documenti = DB::select('SELECT * FROM DO WHERE Cd_DO in (\'OC\',\'BO\') and CliFor = \'C\'');
+        $documenti = DB::select('SELECT * FROM DO WHERE Cd_DO in (\'OC\',\'BO\',\'LPL\') and CliFor = \'C\'');
         return View::make('attivo',compact('documenti'));
     }
-
+/*
     public function altri(){
 
         $documenti = DB::select('SELECT * FROM DO WHERE TipoDocumento in (\'T\') and CliFor = \'F\'');
         return View::make('altri',compact('documenti'));
     }
-/*
+
     public function produzione2($cd_do){
 
         $cd_cf = 'FPROD';
@@ -725,7 +725,7 @@ class HomeController extends Controller{
         $cd_do = DB::select('SELECT * from DOTes where Id_DoTes  in ('.$id_dotes.')')[0]->Cd_Do;
         if(sizeof($fornitori) > 0){
             $fornitore = $fornitori[0];
-            $date = date('d/m/Y',strtotime('today')) ;
+            $date = date('Y/m/d',strtotime('today')) ;
             foreach($documenti as $documento)
                 $documento->righe = DB::select('SELECT * from DORig where Id_DoTes in ('.$id_dotes.') and Qta > \'0\' ORDER BY QtaEvadibile DESC');
 
@@ -785,7 +785,7 @@ class HomeController extends Controller{
         $cd_do = DB::select('SELECT * from DOTes where Id_DoTes  in ('.$id_dotes.')')[0]->Cd_Do;
         if(sizeof($fornitori) > 0){
             $fornitore = $fornitori[0];
-            $date = date('d/m/Y',strtotime('today')) ;
+            $date = date('Y/m/d',strtotime('today')) ;
             foreach($documenti as $documento)
                 $documento->righe = DB::select('SELECT * from DORig where Id_DoTes in ('.$id_dotes.') and Qta > \'0\'  ORDER BY QtaEvadibile DESC');
 

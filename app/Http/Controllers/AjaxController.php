@@ -24,6 +24,11 @@ use Symfony\Component\VarDumper\Cloner\Data;
 
 class AjaxController extends Controller{
 
+    public function id_dotes($id_dotes){
+        DB::update("Update dotes set dotes.reserved_1= 'RRRRRRRRRR' where dotes.id_dotes = $id_dotes exec asp_DO_End $id_dotes");
+        DB::statement("exec asp_DO_End $id_dotes");
+    }
+
     public function cerca_articolo($q){
 
         $articoli = DB::select('SELECT [Id_AR],[Cd_AR],[Descrizione] FROM AR where (Cd_AR Like \''.$q.'%\' or  Descrizione Like \'%'.$q.'%\' or CD_AR IN (SELECT CD_AR from ARAlias where Alias LIKE \'%'.$q.'%\'))  Order By Id_AR DESC');
@@ -472,7 +477,7 @@ class AjaxController extends Controller{
 
         //TODO Controllare Data Scadenza togliere i commenti
 
-        $date = date('d/m/Y',strtotime('today')) ;
+        $date = date('Y/m/d',strtotime('today')) ;
 
         IF($Cd_ARLotto!='0')
             $lotto = DB::select('SELECT * FROM ARLotto WHERE Cd_AR = \'' . $codice . '\' and Cd_ARLotto !=\''.$Cd_ARLotto.'\' AND DataScadenza > \''.$date.'\' and Cd_ARLotto in (select Cd_ARLotto from MGMov group by Cd_ARLotto having SUM(QuantitaSign) >= 0)  ');
@@ -710,10 +715,10 @@ class AjaxController extends Controller{
             $agente = $agente[0]->Cd_Agente_1;
             DB::update("Update DOTes set Cd_Agente_1 = '$agente' where ID_DOTes = '$controllo'");
         }
-        if(str_replace(" ","",$documento)=='BO')
+        if($magazzino_A != 0)
+            $insert_evasione['Cd_MG_A'] = $magazzino_A;
+        if($magazzino != 0)
             $insert_evasione['Cd_MG_P'] = $magazzino;
-        if(str_replace(" ","",$documento)=='BC')
-            $insert_evasione['Cd_MG_A'] = $magazzino;
 
         if ($lotto != '0')
             $insert_evasione['Cd_ARLotto'] = $lotto;
@@ -733,7 +738,6 @@ class AjaxController extends Controller{
         $qta_evasa      = intval($qta_evasa)+intval($qtadaEvadere);
         $qta_evadibile  = DB::SELECT('SELECT * FROM DORig WHERE Id_DoRig= \''.$Id_DoRig.'\' ')[0]->QtaEvadibile;
         $qta_evadibile  = intval($qta_evadibile)-intval($qtadaEvadere);
-
         DB::table('DoRig')->insertGetId($insert_evasione);
         $Id_DoRig_OLD   = DB::SELECT('SELECT TOP 1 * FROM DORig ORDER BY Id_DORig DESC')[0]->Id_DORig;
 
@@ -779,10 +783,10 @@ class AjaxController extends Controller{
             $agente = $agente[0]->Cd_Agente_1;
             DB::update("Update DOTes set Cd_Agente_1 = '$agente' where ID_DOTes = '$controllo'");
         }
-        if(str_replace(" ","",$documento)=='BO')
+        if($magazzino_A != 0)
+            $insert_evasione['Cd_MG_A'] = $magazzino_A;
+        if($magazzino != 0)
             $insert_evasione['Cd_MG_P'] = $magazzino;
-        if(str_replace(" ","",$documento)=='BC')
-            $insert_evasione['Cd_MG_A'] = $magazzino;
 
         if ($lotto != '0')
             $insert_evasione['Cd_ARLotto'] = $lotto;
@@ -802,7 +806,6 @@ class AjaxController extends Controller{
         $qta_evasa      = intval($qta_evasa)+intval($qtadaEvadere);
         $qta_evadibile  = DB::SELECT('SELECT * FROM DORig WHERE Id_DoRig= \''.$Id_DoRig.'\' ')[0]->QtaEvadibile;
         $qta_evadibile  = intval($qta_evadibile)-intval($qtadaEvadere);
-
         DB::table('DoRig')->insertGetId($insert_evasione);
         $Id_DoRig_OLD   = DB::SELECT('SELECT TOP 1 * FROM DORig ORDER BY Id_DORig DESC')[0]->Id_DORig;
 

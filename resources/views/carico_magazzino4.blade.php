@@ -593,7 +593,6 @@
 
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Chiudi</button>
-                    <button type="button" class="btn btn-primary" onclick="cerca_articolo_smart();">Carica Articolo</button>
                 </div>
             </div>
         </form>
@@ -784,8 +783,8 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" style="width: 33%" data-dismiss="modal" onclick="location.reload()">Chiudi</button>
-                    <button type="button" class="btn btn-primary" style="width: 33%" onclick="evadi_articolo(<?php echo $r->Id_DORig; ?>);location.reload()" >Evadi</button>
-                    <button type="button" class="btn btn-primary" style="width: 38%" onclick="evadi_articolo2(<?php echo $r->Id_DORig; ?>);location.reload()" >Nuovo Doc</button>
+                    <button type="button" class="btn btn-primary" style="width: 33%" onclick="evadi_articolo(<?php echo $r->Id_DORig; ?>);" >Evadi</button>
+                    <button type="button" class="btn btn-primary" style="width: 38%" onclick="evadi_articolo2(<?php echo $r->Id_DORig; ?>);" >Nuovo Doc</button>
                 </div>
             </div>
         </form>
@@ -1034,7 +1033,7 @@
             lotto ='0';
         }
         if(magazzino_A == ''){
-            magazzino_A ='0';
+            magazzino_A ='00001';
         }
         if(magazzino == ''){
             magazzino ='0';
@@ -1072,7 +1071,7 @@
             lotto ='0';
         }
         if(magazzino_A == ''){
-            magazzino_A ='0';
+            magazzino_A ='00001';
         }
         if(magazzino == ''){
             magazzino ='0';
@@ -1304,6 +1303,11 @@
 
             });
         }
+        $.ajax({
+            url: "<?php echo URL::asset('ajax/id_dotes') ?>/<?php echo $id_dotes ?>"
+        }).done(function (result) {
+
+        });
         $('#modal_alertSegnalazione').modal('show');
         top.location.href = '/';
     }

@@ -28,6 +28,7 @@ class ArcaUtilsController extends Controller{
 
         DB::update("Update dotes set dotes.reserved_1= 'RRRRRRRRRR' where dotes.id_dotes = $id_dotes exec asp_DO_End $id_dotes");
 
+
     }
     public static function aggiungi_articolo($id_ordine,$codice_articolo,$quantita,$magazzino_A,$fornitore = 0,$ubicazione_A,$lotto,$magazzino_P,$ubicazione_P){
         $lotto = '0';
