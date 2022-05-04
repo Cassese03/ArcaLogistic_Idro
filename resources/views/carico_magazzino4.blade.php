@@ -302,7 +302,7 @@
         <div class="page-content">
             <div class="content-sticky-footer">
 
-                <input style="height: 1px;width: 1px" type="text" id="cerca_articolo2" onkeyup="controllo_articolo_smart();" autofocus autocomplete="off">
+                <input  type="text" id="cerca_articolo2" onkeyup="check();" autofocus autocomplete="off">
                 <div class="background bg-125"><img src="/img/background.png" alt=""></div>
                 <div class="w-100">
                     <h1 class="text-center text-white title-background"><?php echo $fornitore->Descrizione ?><br><small><?php echo $documento->Cd_Do ?> N.<?php echo $documento->NumeroDoc ?> Del <?php echo date('d/m/Y',strtotime($documento->DataDoc)) ?></small></h1>
@@ -322,7 +322,9 @@
                 -->
 
                 <button style="width:80%;margin:0 auto;display:block;margin-bottom:0;" class="btn btn-primary" onclick="$('#modal_cerca_articolo').modal('show');">Aggiungi Prodotto</button>
-
+                <button style="margin-top:10px !important;width:80%;margin:0 auto;display:block;background-color:red;border: red" class="btn btn-primary" type="button" onclick="evadi_articolo2('1');" >Evadi Righe<input style="background-color:red;border: red"  size='1' class="btn btn-primary" type="text" readonly id="button" value="0"> /(<?php echo $righe?>)</button>
+                <input type="hidden" id="DORIG" value="">
+                <input type="hidden" id="lung" value="0">
                 <?php if(sizeof($documento->righe) > 0){ ?>
 
 
@@ -333,14 +335,13 @@
 
                             <?php foreach($documento->righe as $r){ $totale = 0; ?>
                             <?php if($r->QtaEvadibile>0){?>
-                            <li class="list-group-item">
+                            <li class="list-group-item" id="riga_<?php echo $r->Id_DORig ?>">
                                 <a href="#" onclick="" class="media">
-                                    <div class="media-body">
-                                        <div class="row">
-                                            <div class="col-xs-6 col-sm-6 col-md-6">
+                                    <div class="media-body" >
+                                        <div class="row" >
+                                            <div class="col-xs-6 col-sm-6 col-md-6" >
 
-                                                <h5 <?php if($r->QtaEvadibile==0)echo 'style="color: red"'?>><?php echo $r->Cd_AR.' '.$r->Descrizione;?><br><?php echo 'Prezzo :'.round(floatval($r->PrezzoUnitarioV), 2);?><?php /* echo  'Magazzino di Partenza: '.$r->Cd_MG_P;if($r->Cd_MGUbicazione_A != null) echo ' - '.$r->Cd_MGUbicazione_A;?><br><?php echo' Magazzino di Arrivo: '.$r->Cd_MG_A;?><br><?php if($r->Cd_ARLotto != Null)echo 'Lotto: '.$r->Cd_ARLotto;*/ ?></h5>
-                                                <p <?php if($r->QtaEvadibile==0)echo 'style="color: red"'?>>Quantita Evadibile : <?php echo floatval($r->QtaEvadibile)?></p><p <?php if($r->QtaEvadibile==0)echo 'style="color: red"'?>>Quantita': <?php echo floatval($r->Qta) ?></p>
+                                                <h5 <?php if($r->QtaEvadibile==0)echo 'style="color: red"'?>><?php echo $r->Cd_AR.' '.$r->Descrizione;?><br><?php echo 'Prezzo :'.round(floatval($r->PrezzoUnitarioV), 2);?>  Qta : <?php echo floatval($r->QtaEvadibile) ?><?php /* echo  'Magazzino di Partenza: '.$r->Cd_MG_P;if($r->Cd_MGUbicazione_A != null) echo ' - '.$r->Cd_MGUbicazione_A;?><br><?php echo' Magazzino di Arrivo: '.$r->Cd_MG_A;?><br><?php if($r->Cd_ARLotto != Null)echo 'Lotto: '.$r->Cd_ARLotto;*/ ?></h5>
 
                                             </div>
                                             <div class="col-xs-6 col-sm-6 col-md-6" style="padding-left: 10px">
@@ -361,7 +362,7 @@
                                                             </svg>
                                                         </i>
                                                     </button>
-                                                    <button style="width:24%;" type="reset" name="evadi_riga" value="<?php echo $r->Cd_AR;?>" class="btn btn-success btn-sm" onclick="$('#modal_evadi_riga_<?php echo $r->Id_DORig ?>').modal('show');">
+                                                    <button style="width:24%;" type="reset" name="evadi_riga" value="<?php echo $r->Cd_AR;?>" class="btn btn-success btn-sm" onclick="controllo_articolo_smart2('<?php echo $r->Cd_AR?>')">
                                                         <i class="bi bi-check-circle">
                                                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-check-circle" viewBox="0 0 16 16">
                                                                 <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
@@ -388,23 +389,11 @@
                             <?php } ?>
                         </ul>
                     </div>
-<!--
-                    <div class="col-sm-6">
-                        <h3 style="text-align: center;margin-top: 25px">Riepilogo Documento</h3>
-                        <h3 style="float: left;text-align: left;padding-left: 20px">Imponibile</h3>
-                        <h3 style="float: right;text-align: right;padding-right: 20px">&nbsp;<?php /* echo number_format($documento->imponibile,2,',','.') ?>&nbsp;&euro;&nbsp;</h3><br><br>
-                        <h3 style="float: left;text-align: left;padding-left: 20px">Imposta&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</h3>
-                        <h3 style="float: right;text-align: right;padding-right: 20px">&nbsp;<?php echo number_format($documento->imposta,2,',','.') ?>&nbsp;&euro;&nbsp;</h3><br><br>
-                        <h3 style="float: left;text-align: left;padding-left: 20px">Totale&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</h3>
-                        <h3 style="float: right;text-align: right;padding-right: 20px">&nbsp;&nbsp;<?php echo number_format($documento->totale,2,',','.') */?>&nbsp;&euro;&nbsp;</h3><br><br>
-                    </div>
--->
                 </div>
 
 
                 <?php } ?>
                 <?php if(sizeof($documento->righe) > 0){?>
-                <button style="margin-top:35px !important;width:80%;margin:0 auto;display:block;background-color:red;border: red" class="btn btn-primary" onclick="$('#modal_evadi_documento').modal('show');">Evadi Documento</button>
                 <button style="margin-top:10px !important;width:80%;margin:0 auto;display:block;background-color:#007bff;border: #007bff" class="btn btn-primary" onclick="$('#modal_salva_documento').modal('show');">Salva Documento</button>
                 <?php } ?>
             </div>
@@ -422,7 +411,7 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="exampleModalLabel">Carica Articolo</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close" onclick="location.reload()">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close" onclick="$('#modal_cerca_articolo').modal('hide');$('#cerca_articolo2').val('');$('#cerca_articolo2').focus()">
                         <span aria-hidden="true">×</span>
                     </button>
                 </div>
@@ -434,8 +423,8 @@
                 </div>
 
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal" onclick="location.reload()">Chiudi</button>
-                    <button type="button" class="btn btn-primary" onclick="cerca_articolo_smart();check();">Cerca Articolo</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal" onclick="$('#modal_cerca_articolo').modal('hide');$('#cerca_articolo2').val('');$('#cerca_articolo2').focus()">Chiudi</button>
+                    <button type="button" class="btn btn-primary" onclick="cerca_articolo_smart();">Cerca Articolo</button>
                 </div>
             </div>
         </form>
@@ -448,11 +437,11 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="exampleModalLabel">Articolo da Evadere</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close" onclick="location.reload()">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close" onclick="$('#modal_lista_articoli_daevadere').modal('hide');$('#cerca_articolo2').val('');$('#cerca_articolo2').focus()">
                         <span aria-hidden="true">×</span>
                     </button>
                 </div>
-
+                <div class="modal-body" id="ajax_lista_articoli"></div>
                 <div class="modal-body">
 
                     <label>Articolo</label>
@@ -461,14 +450,16 @@
                     <label>Quantita</label>
                     <input class="form-control" type="text" id="modal_controllo_quantita" value=""   autocomplete="off" readonly>
 
-                    <input class="form-control" type="hidden" id="modal_controllo_dorig" value=""  autocomplete="off" readonly>
-                    <input class="form-control" type="hidden" id="modal_controllo_lotto" value="0"  autocomplete="off" readonly>
+                    <input class="form-control" type="hidden" id="modal_controllo_lotto" value=""  autocomplete="off" readonly>
 
-                </div>
+                    <input class="form-control" type="hidden" id="modal_controllo_dorig" value=""  autocomplete="off" readonly>
+
+
+                    </div>
 
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal" onclick="location.reload()">Chiudi</button>
-                    <button type="button" class="btn btn-primary" onclick="evadi_articolo1();">Evadi Riga</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal" onclick="$('#modal_lista_articoli_daevadere').modal('hide');$('#cerca_articolo2').val('');$('#cerca_articolo2').focus()">Chiudi</button>
+                    <button type="button" class="btn btn-primary" onclick="$('#modal_lista_articoli_daevadere').modal('hide');$('#cerca_articolo2').val('');$('#cerca_articolo2').focus();evadi_articolo2('0');">Evadi Riga</button>
                 </div>
             </div>
         </form>
@@ -481,7 +472,7 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="exampleModalLabel">Salvataggio Documento</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close" onclick="location.reload()">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close" onclick="$('#modal_salva_documento').modal('hide');$('#cerca_articolo2').val('');$('#cerca_articolo2').focus()">
                         <span aria-hidden="true">×</span>
                     </button>
                 </div>
@@ -492,7 +483,7 @@
                 </div>
 
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal" onclick="location.reload()">No</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal" onclick="$('#modal_salva_documento').modal('hide');$('#cerca_articolo2').val('');$('#cerca_articolo2').focus()">No</button>
                     <button type="button" class="btn btn-primary" onclick="salva_documento()">Si</button>
                 </div>
             </div>
@@ -506,7 +497,7 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="exampleModalLabel">Righe non Evase</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close" onclick="location.reload()">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close" onclick="$('#modal_lista_salva').modal('hide');$('#cerca_articolo2').val('');$('#cerca_articolo2').focus()">
                         <span aria-hidden="true">×</span>
                     </button>
                 </div>
@@ -521,7 +512,7 @@
                 <input type="hidden" name="modal_Prezzo_c_<?php echo $r->Id_DORig?>" id="modal_Prezzo_c_<?php echo $r->Id_DORig?>">
                 <?php } ?>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal" onclick="location.reload()">Chiudi</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal" onclick="$('#modal_lista_salva').modal('hide');$('#cerca_articolo2').val('');$('#cerca_articolo2').focus()">Chiudi</button>
                     <button type="button" class="btn btn-primary" onclick="checkDoc();invia()">Salva Documento</button>
                 </div>
             </div>
@@ -535,7 +526,7 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="exampleModalLabel">Righe da Evadere</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close" onclick="location.reload()">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close" onclick="$('#modal_lista_documenti').modal('hide');$('#cerca_articolo2').val('');$('#cerca_articolo2').focus()">
                         <span aria-hidden="true">×</span>
                     </button>
                 </div>
@@ -543,7 +534,7 @@
                 <div class="modal-body" id="ajax_lista_documenti"></div>
 
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal" onclick="location.reload()">Chiudi</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal" onclick="$('#modal_lista_documenti').modal('hide');$('#cerca_articolo2').val('');$('#cerca_articolo2').focus()">Chiudi</button>
                     <button type="button" class="btn btn-primary" onclick="evadi_documento1()">Evadi Documento</button>
                 </div>
             </div>
@@ -557,7 +548,7 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="exampleModalLabel">Segnalazione</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close" onclick="location.reload()">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close" onclick="$('#modal_segnalazione<?php echo $r->Id_DORig?>').modal('hide');$('#cerca_articolo2').val('');$('#cerca_articolo2').focus()">
                         <span aria-hidden="true">×</span>
                     </button>
                 </div>
@@ -569,7 +560,7 @@
                 </div>
 
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal" onclick="location.reload()">Chiudi</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal" onclick="$('#modal_segnalazione<?php echo $r->Id_DORig?>').modal('hide');$('#cerca_articolo2').val('');$('#cerca_articolo2').focus()">Chiudi</button>
                     <button type="button" class="btn btn-primary" onclick="segnalazione();">Invia Segnalazione</button>
                 </div>
 
@@ -578,6 +569,7 @@
     </div>
 </div>
 <?php } ?>
+<?php /*
 <div class="modal" id="modal_lista_articoli" tabindex="-1" role="dialog" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <form method="post">
@@ -598,6 +590,7 @@
         </form>
     </div>
 </div>
+*/?>
 
 
 <div class="modal" id="modal_carico" tabindex="-1" role="dialog" aria-hidden="true">
@@ -606,43 +599,20 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="exampleModalLabel">Carica Articolo</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close" onclick="location.reload()">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close" onclick="$('#modal_carico').modal('hide');$('#cerca_articolo2').val('');$('#cerca_articolo2').focus()">
                         <span aria-hidden="true">×</span>
                     </button>
                 </div>
                 <div class="modal-body">
                     <div id="ajax_modal_carico"></div>
-                    <input type="hidden" name="Cd_AR" id="modal_Cd_AR">
+                    <input type="hidden" name="Cd_AR" id="modal_Cd_AR" value="">
                     <label>Quantita</label>
                     <input class="form-control" type="number" id="modal_quantita" value="" required placeholder="Inserisci una Quantità" autocomplete="off" >
-                <!--
-
-                    <label>Prezzo (&euro;)</label>
-                    <input class="form-control" type="number" id="modal_prezzo" value="" required placeholder="Inserisci un Prezzo" autocomplete="off">
-                    -->
-                    <?php /*
-                    <label>Magazzino Partenza</label>
-                    <select class="form-control" type="number" id="modal_magazzino_P" value="" required placeholder="Inserisci un Magazzino" autocomplete="off";>
-                        <?php /*foreach($magazzino_ord as $mp){?>
-                        <option><?php echo $mp->Cd_MG.' - '.$mp->Descrizione;?></option>
-                        <?php } *//*?>
-                    </select>
-                    <label>Magazzino Arrivo</label>
-                    <select class="form-control" type="number" id="modal_magazzino_A" value="" required placeholder="Inserisci un Magazzino" autocomplete="off";>
-
-                        <?php foreach($magazzino_ord as $mp){?>
-                            <option><?php echo $mp->Cd_MG.' - '.$mp->Descrizione;?></option>
-                        <?php }?>
-                    </select>
-                    */?>
                 <input type="hidden" value="0" id="modal_lotto">
-
-
-
                 </div>
 
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal" onclick="location.reload()">Chiudi</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal" onclick="$('#modal_carico').modal('hide');$('#cerca_articolo2').val('');$('#cerca_articolo2').focus()">Chiudi</button>
                     <button type="button" class="btn btn-primary" onclick="carica_articolo();">Carica Articolo</button>
                 </div>
             </div>
@@ -682,7 +652,7 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="exampleModalLabel">Modifica Articolo <?php echo $r->Cd_AR ?></h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close" onclick="location.reload()">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close" onclick="$('#modal_modifica_<?php  echo $r->Id_DORig ?>').modal('hide');$('#cerca_articolo2').val('');$('#cerca_articolo2').focus()">
                         <span aria-hidden="true">×</span>
                     </button>
                 </div>
@@ -698,36 +668,12 @@
                     <label>Prezzo</label>
                     <input class="form-control" type="number" name="PrezzoUnitarioV" value="<?php echo round(floatval($r->PrezzoUnitarioV), 2); ?>" required placeholder="Inserisci un Prezzo" autocomplete="off" step="0.01" >
 
-                <!--
-
-                    <label>Prezzo (&euro;)</label>
-                    <input class="form-control" type="number" name="PrezzoUnitarioV" value="<?php echo floatval($r->PrezzoUnitarioV) ?>" required placeholder="Inserisci un Prezzo" autocomplete="off"; step="0.01">
-                --><?php /*
-                    <label>Magazzino Partenza</label>
-                    <select class="form-control" type="number" name="modal_magazzino_P_m" id="modal_magazzino_P_m" value="" required placeholder="Inserisci un Magazzino" autocomplete="off";>
-                        <?php foreach($magazzino_ord as $mp){ ?>
-                        <?php if($r->Cd_MG_P != '' && $r->Cd_MG_P == $mp->Cd_MG){?>
-                        <option selected><?php echo $mp->Cd_MG.' - '.$mp->Descrizione;?></option>
-                        <?php }else{?>
-                        <option><?php echo $mp->Cd_MG.' - '.$mp->Descrizione;?></option>
-                        <?php } } ?>
-                    </select>
-                    <label>Magazzino Arrivo</label>
-                    <select class="form-control" type="number" name="modal_magazzino_A_m" id="modal_magazzino_A_m" value="" required placeholder="Inserisci un Magazzino" autocomplete="off";>
-                        <?php foreach($magazzino_ord as $mp){ ?>
-                        <?php if($r->Cd_MG_A != '' && $r->Cd_MG_A == $mp->Cd_MG){?>
-                        <option selected><?php echo $mp->Cd_MG.' - '.$mp->Descrizione;?></option>
-                        <?php }else{?>
-                        <option><?php echo $mp->Cd_MG.' - '.$mp->Descrizione;?></option>
-                        <?php } } ?>
-                    </select>
-                    */?>
                     <input class="form-control" type="hidden" name="modal_lotto_m" value="0"  autocomplete="off" >
 
                 </div>
                 <div class="modal-footer">
                     <input type="hidden" name="Id_DORig" value="<?php echo $r->Id_DORig ?>">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal" onclick="location.reload()">Chiudi</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal" onclick="$('#modal_modifica_<?php  echo $r->Id_DORig ?>').modal('hide');$('#cerca_articolo2').val('');$('#cerca_articolo2').focus()">Chiudi</button>
                     <button type="submit" name="modifica_riga" value="Salva" class="btn btn-primary">Salva</button>
                 </div>
             </div>
@@ -743,7 +689,7 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="exampleModalLabel">Evadi Articolo <?php echo $r->Cd_AR ?></h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close" onclick="location.reload()">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close" onclick="$('#modal_evadi_riga_<?php  echo $r->Id_DORig ?>').modal('hide');$('#cerca_articolo2').val('');$('#cerca_articolo2').focus()">
                         <span aria-hidden="true">×</span>
                     </button>
                 </div>
@@ -760,15 +706,6 @@
                         <?php } ?>
                     </select>
                     <br><br>
-                    <?php /*
-                    <label>Magazzino di Arrivo :</label>
-                    <select style="width:100%;border:none;font-size:medium;background:transparent;" id="modal_inserimento_magazzino_<?php echo $r->Id_DORig?>">
-
-                    <?php foreach($magazzino_ord as $m){ ?>
-                            <option class="form-control" type="text" ><?php echo $m->Cd_MG.' - '.$m->Descrizione?></option>
-                        <?php } ?>
-                    </select>
-                    <br> */?>
                     <input type="hidden" id="modal_inserimento_magazzino_<?php echo $r->Id_DORig?>" value="00001">
                     <input type="hidden" id="modal_magazzino_<?php  echo $r->Id_DORig ?>" value="<?php if(str_replace(" ","",$documento->Cd_Do) == 'OF') echo $r->Cd_MG_A; if(str_replace(" ","",$documento->Cd_Do) == 'OC') echo $r->Cd_MG_P ;?>">
                     <input type="hidden" id="modal_codice_<?php  echo $r->Id_DORig ?>" value="<?php echo $r->Cd_AR?>">
@@ -782,53 +719,15 @@
 
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" style="width: 33%" data-dismiss="modal" onclick="location.reload()">Chiudi</button>
+                    <button type="button" class="btn btn-secondary" style="width: 33%" data-dismiss="modal" onclick="$('#modal_evadi_riga_<?php  echo $r->Id_DORig ?>').modal('hide');$('#cerca_articolo2').val('');$('#cerca_articolo2').focus()">Chiudi</button>
                     <button type="button" class="btn btn-primary" style="width: 33%" onclick="evadi_articolo(<?php echo $r->Id_DORig; ?>);" >Evadi</button>
-                    <button type="button" class="btn btn-primary" style="width: 38%" onclick="evadi_articolo2(<?php echo $r->Id_DORig; ?>);" >Nuovo Doc</button>
+                    <?php //<button type="button" class="btn btn-primary" style="width: 38%" onclick="evadi_articolo2(<?php echo $r->Id_DORig; ?><?php //);" >Nuovo Doc</button>?>
                 </div>
             </div>
         </form>
     </div>
 </div>
 <?php } ?>
-<div class="modal" id="modal_evadi_documento" tabindex="-1" role="dialog" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <form method="post">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Inserire Flusso</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close" onclick="location.reload()">
-                        <span aria-hidden="true">×</span>
-                    </button>
-                </div>
-
-                <div class="modal-body">
-                    <select style="width:100%;border:none;font-size:medium;background:transparent;" id="modal_inserimento_flusso">
-                        <?php foreach($flusso as $f){ ?>
-                        <option  class="form-control" type="text"><?php echo $f->Cd_DO ?></option>
-                        <?php } ?>
-                    </select>
-                    <br><br>
-                    <?php /*
-                    <label>Magazzino di Arrivo :</label>
-                    <select style="width:100%;border:none;font-size:medium;background:transparent;" id="modal_inserimento_magazzino_A">
-                    <?php foreach($magazzino_ord as $m){ ?>
-                        <option class="form-control" type="text"><?php echo $m->Cd_MG.' - '.$m->Descrizione?></option>
-                        <?php } ?>
-                    </select>
-                    */?>
-                    <input type="hidden" id="modal_inserimento_magazzino_A" value="00001">
-                    <br>
-                </div>
-
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal" onclick="location.reload()">Chiudi</button>
-                    <button type="button" class="btn btn-primary" onclick="evadi_documento()">Evadi Documento</button>
-                </div>
-            </div>
-        </form>
-    </div>
-</div>
 
 <div class="modal" id="modal_segnalare" tabindex="-1" role="dialog" aria-hidden="true">
     <div class="modal-dialog" role="document">
@@ -836,7 +735,7 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="exampleModalLabel">Articolo non Trovato</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close" onclick="location.reload()">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close" onclick="$('#modal_segnalare').modal('hide');$('#cerca_articolo2').val('');$('#cerca_articolo2').focus()">
                         <span aria-hidden="true">×</span>
                     </button>
                 </div>
@@ -849,7 +748,7 @@
                 </div>
 
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal" onclick="location.reload()">Chiudi</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal" onclick="$('#modal_segnalare').modal('hide');$('#cerca_articolo2').val('');$('#cerca_articolo2').focus()">Chiudi</button>
                     <button type="button" class="btn btn-primary" onclick="segnalazioneControllo1();">Invia Segnalazione</button>
                 </div>
 
@@ -858,51 +757,67 @@
     </div>
 </div>
 
+
+
+<div class="modal" id="modal_noriga" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="alert alert-warning alert-dismissible fade show">
+        <button type="button" class="close" onclick="$('#modal_noriga').modal('hide');$('#cerca_articolo2').val('');$('#cerca_articolo2').focus()">&times;</button>
+        <strong>Warning!</strong> <br>Non hai scelto nessuna riga da evadere</a>.
+    </div>
+</div>
+
+<div class="modal" id="modal_alertEvasione" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="alert alert-success alert-dismissible fade show">
+        <button type="button" class="close"  onclick="$('#modal_alertEvasione').modal('hide');$('#cerca_articolo2').val('');$('#cerca_articolo2').focus() ">&times;</button>
+        <strong>Warning!</strong> <br>La riga è gia' in fase di evasione</a>.
+    </div>
+</div>
+
 <div class="modal" id="modal_alertSegnalazione" tabindex="-1" role="dialog" aria-hidden="true">
     <div class="alert alert-success alert-dismissible fade show">
-        <button type="button" class="close" data-dismiss="alert" onclick="location.reload()">&times;</button>
+        <button type="button" class="close" data-dismiss="alert" onclick="$('#modal_alertSegnalazione').modal('hide');$('#cerca_articolo2').val('');$('#cerca_articolo2').focus()">&times;</button>
         <strong>Success!</strong> <br>Segnalazione Effettuata</a>.
     </div>
 </div>
 
 <div class="modal" id="modal_alertEvase" tabindex="-1" role="dialog" aria-hidden="true">
     <div class="alert alert-success alert-dismissible fade show">
-        <button type="button" class="close" data-dismiss="alert" onclick="location.reload()">&times;</button>
+        <button type="button" class="close" data-dismiss="alert" onclick="$('#modal_alertEvase').modal('hide');$('#cerca_articolo2').val('');$('#cerca_articolo2').focus()">&times;</button>
         <strong>Success!</strong> <br>Le righe sono state completamente Evase</a>.
     </div>
 </div>
 
 <div class="modal" id="modal_alertQuantita" tabindex="-1" role="dialog" aria-hidden="true">
     <div class="alert alert-warning alert-dismissible fade show">
-        <button type="button" class="close" data-dismiss="alert" onclick="location.reload()">&times;</button>
+        <button type="button" class="close" data-dismiss="alert" onclick="$('#modal_alertQuantita').modal('hide');$('#cerca_articolo2').val('');$('#cerca_articolo2').focus()">&times;</button>
         <strong>Alert!</strong> <br>Inserire una quantita </a>.
     </div>
 </div>
 
 <div class="modal" id="modal_alertInserimento" tabindex="-1" role="dialog" aria-hidden="true">
     <div class="alert alert-success alert-dismissible fade show">
-        <button type="button" class="close" data-dismiss="alert" onclick="location.reload()">&times;</button>
+        <button type="button" class="close" data-dismiss="alert" onclick="$('#modal_alertInserimento').modal('hide');$('#cerca_articolo2').val('');$('#cerca_articolo2').focus()">&times;</button>
         <strong>Success!</strong> <br>Articolo Inserito Correttamente</a>.
     </div>
 </div>
 
 <div class="modal" id="modal_alertUbicazione" tabindex="-1" role="dialog" aria-hidden="true">
     <div class="alert alert-warning alert-dismissible fade show">
-        <button type="button" class="close" data-dismiss="alert" onclick="location.reload()">&times;</button>
+        <button type="button" class="close" data-dismiss="alert" onclick="$('#modal_alertUbicazione').modal('hide');$('#cerca_articolo2').val('');$('#cerca_articolo2').focus()">&times;</button>
         <strong>Alert!</strong> <br>Ubicazione inserita non corretta o inesistente</a>.
     </div>
 </div>
 
 <div class="modal" id="modal_alertQuantita0" tabindex="-1" role="dialog" aria-hidden="true">
     <div class="alert alert-warning alert-dismissible fade show">
-        <button type="button" class="close" data-dismiss="alert" onclick="location.reload()">&times;</button>
+        <button type="button" class="close" data-dismiss="alert" onclick="$('#modal_alertQuantita0').modal('hide');$('#cerca_articolo2').val('');$('#cerca_articolo2').focus()">&times;</button>
         <strong>Alert!</strong> <br>Impossibile Evadere la Quantita' Evadibile a zero </a>.
     </div>
 </div>
 
 <div class="modal" id="modal_alertTrovare" tabindex="-1" role="dialog" aria-hidden="true">
     <div class="alert alert-warning alert-dismissible fade show">
-        <button type="button" class="close" data-dismiss="alert" onclick="location.reload()">&times;</button>
+        <button type="button" class="close" data-dismiss="alert" onclick="$('#modal_alertTrovare').modal('hide');$('#cerca_articolo2').val('');$('#cerca_articolo2').focus()">&times;</button>
         <strong>Alert!</strong><br> Nessun Articolo Trovato </a>.
     </div>
 </div>
@@ -947,42 +862,15 @@
             });
         }
     }
-    function evadi_documento(){
-
-        Cd_Do    = document.getElementById('modal_inserimento_flusso').value;
-        Id_DoTes = '<?php echo $id_dotes?>';
-        magazzino_A      = document.getElementById('modal_inserimento_magazzino_A').value;
-        if(magazzino_A==null){
-            magazzino_A='0';
-        }
-        if(Id_DoTes!='')
-            $.ajax({
-                url: "<?php echo URL::asset('ajax/evadi_documento1')?>/"+Id_DoTes+"/"+Cd_Do+"/"+magazzino_A.substring(0,5)
-
-            }).done(function(result) {
-
-
-                $('#modal_evadi_documento').modal('hide');
-                $('#modal_lista_documenti').modal('show');
-                $('#ajax_lista_documenti').html(result);
-
-            });
-
-    }
     function salva_documento(){
 
-        Cd_Do    = document.getElementById('modal_inserimento_flusso').value;
+        Cd_Do    = 0;
         Id_DoTes = '<?php echo $id_dotes?>';
-        magazzino_A      = document.getElementById('modal_inserimento_magazzino_A').value;
-        if(magazzino_A==null){
-            magazzino_A='0';
-        }
-        if(Cd_Do==null){
-            Cd_Do='0';
-        }
+        magazzino_A      = 0 ;
+
         if(Id_DoTes!='')
             $.ajax({
-                url: "<?php echo URL::asset('ajax/salva_documento1')?>/"+Id_DoTes+"/"+Cd_Do+"/"+magazzino_A.substring(0,5)
+                url: "<?php echo URL::asset('ajax/salva_documento1')?>/"+Id_DoTes+"/"+Cd_Do+"/"+magazzino_A
 
             }).done(function(result) {
 
@@ -994,23 +882,64 @@
             });
 
     }
-    function evadi_documento1(){
 
-        Cd_Do    = document.getElementById('modal_inserimento_flusso').value;
-        Id_DoTes = '<?php echo $id_dotes?>';
-        magazzino_A      = document.getElementById('modal_inserimento_magazzino_A').value;
-        if(magazzino_A==null){
-            magazzino_A='0';
+    function check(){
+        check2 = document.getElementById('cerca_articolo2').value;
+        lung  = document.getElementById('lung').value;
+
+        if(check2.length!= 0) {
+            if (lung == check2.length) {
+                controllo_articolo_smart();
+                document.getElementById('lung').value = 0;
+            } else {
+                document.getElementById('lung').value = check2.length;
+                const myTimeout = setTimeout(check, 1000);
+                return;
+            }
         }
-        if(Id_DoTes!='')
-            $.ajax({
-                url: "<?php echo URL::asset('ajax/evadi_documento')?>/"+Id_DoTes+"/"+Cd_Do+"/"+magazzino_A.substring(0,5)
+    }
 
-            }).done(function(result) {
-                $('#modal_alertEvase').modal('show');
-                location.reload();
-            });
+    function evadi_articolo2(conf){
 
+        if(conf != '1'){
+            document.getElementById('cerca_articolo2').value = '';
+            text = document.getElementById('modal_controllo_dorig').value;
+            dorig = document.getElementById('DORIG').value;
+            if(dorig.search(text)==(-1)) {
+                if (dorig != '')
+                    document.getElementById('DORIG').value = document.getElementById('DORIG').value + "','" + text;
+                if (dorig == '')
+                    document.getElementById('DORIG').value = text;
+            }
+            else {
+                $('#modal_alertEvasione').modal('show');
+                return;
+            }
+            document.getElementById('cerca_articolo2').focus();
+            righe = document.getElementById('button').value;
+            righe++;
+            document.getElementById('button').value = righe;
+            document.getElementById('button').innerHTML = 'Evadi Righe ('+righe+')';
+            document.getElementById('riga_'+text).style.backgroundColor = 'green';
+        }
+        else {
+            dorig = document.getElementById('DORIG').value;
+            if (dorig == '') {
+                $('#modal_noriga').modal('show');
+                return;
+            }
+            else {
+                $.ajax({
+                    url: "<?php echo URL::asset('ajax/evadi_articolo2')?>/" + dorig
+                }).done(function (result) {
+                    if (result.length > 1)
+                        $('#modal_alertQuantita0').modal('show');
+                    else
+                        $('#modal_alertEvasa').modal('show');
+                    location.reload();
+                });
+            }
+        }
     }
 
     function evadi_articolo1(){
@@ -1020,27 +949,26 @@
     function evadi_articolo(dorig){
 
         codice          = $('#modal_codice_'+dorig).val();
-        if(codice.search("/") != '-1')
-            codice = codice.substring(0,codice.search("/"))+'slash'+codice.substring(codice.search("/")+1);
         documento       = $('#modal_inserimento_flusso_'+dorig).val();
         magazzino_A     = $('#modal_inserimento_magazzino_'+dorig).val();
         lotto           = $('#modal_lotto_'+dorig).val();
         magazzino       = $('#modal_magazzino_'+dorig).val();
-        ubicazione      = '0';
+        ubicazione      = $('#modal_ubicazione_'+dorig).val();
         quantita_evasa  = $('#modal_Qta_'+dorig).val();
-
-        if(lotto == ''){
-            lotto ='0';
-        }
-        if(magazzino_A == ''){
-            magazzino_A ='00001';
-        }
-        if(magazzino == ''){
-            magazzino ='0';
-        }
-        if(ubicazione==''){
+        if(ubicazione != '') {
+            pos = ubicazione.indexOf(" - ");
+            pos = pos + 3 ;
+            magazzino_prova = ubicazione.substring(pos);
+            pos = pos - 3 ;
+            ubicazione = ubicazione.substring(0,pos);
+            if(magazzino_prova != magazzino_A.substring(0,5))
+                $('#modal_ubicazione').modal('show');
+        }else
             ubicazione='0';
+        if(magazzino_A == null){
+            magazzino_A ='0';
         }
+
         if(quantita_evasa != ''||quantita_evasa == '0'){
             $.ajax({
                 url: "<?php echo URL::asset('ajax/evadi_articolo')?>/"+dorig+"/"+quantita_evasa+"/"+magazzino.substring(0,5)+"/"+ubicazione+"/"+lotto+"/"+cd_cf+"/"+documento+"/"+codice+"/"+magazzino_A.substring(0,5)
@@ -1048,45 +976,8 @@
                 if(result.length>1)
                     $('#modal_alertQuantita0').modal('show');
                 else
-                    location.reload();
-            });
-
-        } else
-            $('#modal_alertQuantita').modal('show');
-
-    }
-    function evadi_articolo2(dorig){
-
-        codice          = $('#modal_codice_'+dorig).val();
-        if(codice.search("/") != '-1')
-            codice = codice.substring(0,codice.search("/"))+'slash'+codice.substring(codice.search("/")+1);
-        documento       = $('#modal_inserimento_flusso_'+dorig).val();
-        magazzino_A     = $('#modal_inserimento_magazzino_'+dorig).val();
-        lotto           = $('#modal_lotto_'+dorig).val();
-        magazzino       = $('#modal_magazzino_'+dorig).val();
-        ubicazione      = '0';
-        quantita_evasa  = $('#modal_Qta_'+dorig).val();
-
-        if(lotto == ''){
-            lotto ='0';
-        }
-        if(magazzino_A == ''){
-            magazzino_A ='00001';
-        }
-        if(magazzino == ''){
-            magazzino ='0';
-        }
-        if(ubicazione==''){
-            ubicazione='0';
-        }
-        if(quantita_evasa != ''||quantita_evasa == '0'){
-            $.ajax({
-                url: "<?php echo URL::asset('ajax/evadi_articolo2')?>/"+dorig+"/"+quantita_evasa+"/"+magazzino.substring(0,5)+"/"+ubicazione+"/"+lotto+"/"+cd_cf+"/"+documento+"/"+codice+"/"+magazzino_A.substring(0,5)
-            }).done(function(result) {
-                if(result.length>1)
-                    $('#modal_alertQuantita0').modal('show');
-                else
-                    location.reload();
+                    $('#modal_alertEvasa').modal('show');
+                location.reload();
             });
 
         } else
@@ -1124,7 +1015,6 @@
 
         codice      =      document.getElementById('codice').value;
         quantita    =      $('#modal_quantita_m').val();
-       /* prezzo    =      $('#modal_prezzo_m').val();*/
         magazzino_P =      $('#modal_magazzino_P_m').val();
         magazzino_A =      $('#modal_magazzino_A_m').val();
         lotto       =      $('#modal_lotto_m').val();
@@ -1152,17 +1042,6 @@
         }
     }
 
-    document.addEventListener("keydown", function(e) {
-        if(e.which == 114){
-            console.log(e.which);
-            e.preventDefault();
-            $('#modal_cerca_articolo').modal('show');
-        } else if(e.which == 13){
-            e.preventDefault();
-        }
-    });
-
-
     function cerca_articolo_smart(){
 
         testo = $('#cerca_articolo').val();
@@ -1177,8 +1056,7 @@
                 if(result != '') {
 
                     $('#modal_cerca_articolo').modal('hide');
-                    $('#modal_lista_articoli').modal('show');
-                    $('#ajax_lista_articoli').html(result);
+                    cerca_articolo_codice(result);
                 } else
                     $('#modal_alertTrovare').modal('show');
             });
@@ -1188,34 +1066,16 @@
     }
 
 
-
-    /*$(document).scannerDetection({
-        timeBeforeScanTest: 200, // wait for the next character for upto 200ms
-        startChar: [120], // Prefix character for the cabled scanner (OPL6845R)
-        endChar: [13], // be sure the scan is complete if key 13 (enter) is detec
-        // ted
-        avgTimeByChar: 40, // it's not a barcode if a character takes longer than 40ms
-        onComplete: function(code, qty){
-
-            $.ajax({
-                url: "/ajax/cerca_articolo_barcode/<?php echo $fornitore->Cd_CF ?>/"+code,
-                context: document.body
-            }).done(function(result) {
-
-                if(result != '') {
-                    $('#modal_carico').modal('show');
-                    $('#ajax_modal_carico').html(result);
-                    $('#modal_prezzo').focus();
-                } else {
-                    $('#modal_inserimento').modal('show');
-                    $('#modal_inserimento_barcode').val(code);
-                }
-            });
-
-        } // main callback function
-    });*/
-
     function cerca_articolo_codice(fornitore,codice,lotto,qta){
+
+
+        if(fornitore.length > 6) {
+            const myArray = fornitore.split("','");
+            codice = myArray[1];
+            lotto = myArray[2];
+            qta = myArray[3];
+        }
+
 
         $.ajax({
             url: "/ajax/cerca_articolo_codice/<?php echo $fornitore->Cd_CF ?>/"+codice+"/"+lotto+"/"+qta,
@@ -1233,8 +1093,32 @@
     }
 
     function controllo_articolo_smart() {
-
         testo = $('#cerca_articolo2').val();
+        id_dotes ="<?php echo $id_dotes?>";
+        if (testo != '') {
+
+            $.ajax({
+                url: "<?php echo URL::asset('ajax/controllo_articolo_smart') ?>/" + testo + "/" + id_dotes,
+                context: document.body
+            }).done(function (result) {
+                if (result != '') {
+                    $('#modal_cerca_articolo').modal('hide');
+                    $('#ajax_lista_articoli').html(result);
+                    evadi_articolo2('0');
+                } else {
+                    $('#modal_segnalare').modal('show');
+                    $('#cerca_articolo2').value = '';
+                    document.getElementById('Segnalazione_C').value =  testo;
+                    document.getElementById('id_dotes_C').value =  id_dotes;
+                    document.getElementById('id_dorig_C').value =  id_dorig;
+                }
+            });
+
+        }
+    }
+    function controllo_articolo_smart2(codice) {
+
+        testo = codice;
         id_dotes ="<?php echo $id_dotes?>";
         if (testo != '') {
 
@@ -1323,13 +1207,6 @@
     }
     function segnalazioneControllo(id_dotes,id_dorig,Segnalazione){
 
-        /*
-        position  = Segnalazione.search("");
-        position--;
-        articolo  = Segnalazione.substring(2,15);
-        lotto     = Segnalazione.substring(18,position);
-        Segnalazione = "Articolo " + articolo + " con lotto " + lotto + " non trovato ";
-        */
         if(id_dotes!=''){
             $.ajax({
                 url: "<?php echo URL::asset('ajax/segnalazione') ?>/<?php echo $id_dotes ?>/"+ id_dorig + "/" + Segnalazione
@@ -1351,30 +1228,9 @@
     if(window.innerWidth > 800) {
         $('#interactive').css('display','none');
     }
-    function check(){
-        check = document.getElementById('cerca_articolo').value;
-        lunghezza = check.length;
-            if(check.substring(0,3)==']C1'){
-            document.getElementById('cerca_articolo').value=check.substring(3,lunghezza);
-            check = document.getElementById('cerca_articolo').value;
-            alert('GS1 Code aggiustato riprovare a cercare');
-        }
-    }
 
     $('.modal').on('shown.bs.modal', function() {
         $(this).find('[autofocus]').focus();
     });
-/*
-    function paste_input(e) {
-        console.log(e)
-        return false;
-    }
-
-    $("#cerca_articolo2").bind("paste", function(e){
-        // access the clipboard using the api
-        var pastedData = e.originalEvent.clipboardData.getData('text');
-        alert(pastedData);
-    } );*/
-
 </script>
 

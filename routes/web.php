@@ -38,6 +38,7 @@ Route::any('magazzino/produzione2_tot/{cd_do}', 'HomeController@produzione2_tot'
 Route::any('magazzino/produzione3/{id_dotes}/{id_fornitore}', 'HomeController@produzione3');
 */
 
+Route::any('ajax/evadi_articolo2/{dorig}', 'AjaxController@evadi_articolo2');
 
 Route::any('magazzino/carico', 'HomeController@carico_magazzino');
 Route::any('magazzino/carico2/{cd_do}', 'HomeController@carico_magazzino2');
@@ -50,7 +51,7 @@ Route::any('magazzino/carico03/{id_fornitore}/{cd_do}', 'HomeController@carico_m
 Route::any('magazzino/carico03_tot/{id_fornitore}/{cd_do}', 'HomeController@carico_magazzino03_tot');
 Route::any('magazzino/carico04/{id_fornitore}/{id_dotes}', 'HomeController@carico_magazzino04');
 
-
+/*
 Route::any('magazzino/trasporto_fornitore/{cd_do}', 'HomeController@trasporto_fornitore');
 Route::any('magazzino/trasporto_documento/{cd_do}/{cd_cf}', 'HomeController@trasporto_documento');
 Route::any('magazzino/trasporto_documento_tot/{cd_do}/{cd_cf}', 'HomeController@trasporto_documento_tot');
@@ -61,7 +62,6 @@ Route::any('magazzino/trasporto3/{cd_ar}/{cd_do}/{cd_cf}/{cd_mg}/{cd_mgubicazion
 Route::any('magazzino/trasporto3_tot/{cd_ar}/{cd_do}/{cd_cf}/{cd_mg}/{cd_mgubicazione}/{lotto}/{Id_DoTes}', 'HomeController@trasporto_magazzino3_tot');
 Route::any('magazzino/trasporto4/{cd_do}/{cd_cf}/{cd_mg}/{cd_mg_A}/{Id_DoTes}', 'HomeController@trasporto_magazzino4');
 
-/*
 Route::any('magazzino/scarico', 'HomeController@scarico_magazzino');
 Route::any('magazzino/scarico2/{cd_do}', 'HomeController@scarico_magazzino2');
 Route::any('magazzino/scarico3/{id_fornitore}/{cd_do}', 'HomeController@scarico_magazzino3');
@@ -94,13 +94,13 @@ Route::any('ajax/cerca_articolo_smart_inventario/{q}/{tipo}', 'AjaxController@ce
 
 Route::any('ajax/inserisci_lotto/{lotto}/{cd_ar}/{fornitore}/{descrizione}/{fornitore_pallet}/{pallet}', 'AjaxController@inserisci_lotto');
 Route::any('ajax/visualizza_lotti/{cd_ar}', 'AjaxController@visualizza_lotti');
-Route::any('ajax/storialotto/{cd_ar}/{lotto}', 'AjaxController@storialotto');
+//Route::any('ajax/storialotto/{cd_ar}/{lotto}', 'AjaxController@storialotto');
 Route::any('ajax/segnalazione/{dotes}/{dorig}/{testo}', 'AjaxController@segnalazione');
 Route::any('ajax/invia_mail/{dotes}/{dorig}/{testo}', 'AjaxController@invia_mail');
 Route::any('ajax/segnalazione_salva/{dotes}/{dorig}/{testo}', 'AjaxController@segnalazione_salva');
 Route::any('ajax/cerca_articolo_barcode/{cd_cf}/{barcode}', 'AjaxController@cerca_articolo_barcode');
-Route::any('ajax/evadi_documento/{dotes}/{cd_do}/{magazzino_A}', 'AjaxController@evadi_documento');
-Route::any('ajax/evadi_documento1/{dotes}/{cd_do}/{magazzino_A}', 'AjaxController@evadi_documento1');
+//Route::any('ajax/evadi_documento/{dotes}/{cd_do}/{magazzino_A}', 'AjaxController@evadi_documento');
+//Route::any('ajax/evadi_documento1/{dotes}/{cd_do}/{magazzino_A}', 'AjaxController@evadi_documento1');
 Route::any('ajax/salva_documento1/{dotes}/{cd_do}/{magazzino_A}', 'AjaxController@salva_documento1');
 Route::any('ajax/evadi_articolo/{dorig}/{qtaevasa}/{magazzino}/{ubicazione}/{lotto}/{cd_cf}/{documento}/{cd_ar}/{magazzino_A}', 'AjaxController@evadi_articolo');
 Route::any('ajax/evadi_articolo2/{dorig}/{qtaevasa}/{magazzino}/{ubicazione}/{lotto}/{cd_cf}/{documento}/{cd_ar}/{magazzino_A}', 'AjaxController@evadi_articolo2');
@@ -110,22 +110,8 @@ Route::any('ajax/trasporto_articolo/{documento}/{codice}/{quantita}/{magazzino}/
 Route::any('ajax/modifica_articolo_ordine/{id_ordine}/{codice}/{quantita}/{magazzino_A}/{ubicazione_A}/{lotto}/{magazzino_P}/{ubicazione_P}', 'AjaxController@modifica_articolo_ordine');
 Route::any('ajax/scarica_articolo_ordine/{id_ordine}/{codice}/{quantita}/{magazzino}/{ubicazione}/{lotto}', 'AjaxController@scarica_articolo_ordine');
 Route::any('ajax/crea_documento/{cd_cf}/{cd_do}/{numero}/{data}', 'AjaxController@crea_documento');
-Route::any('ajax/crea_documento_trasporto/{cd_do}/{numero}/{data}', 'AjaxController@crea_documento_trasporto');
+//Route::any('ajax/crea_documento_trasporto/{cd_do}/{numero}/{data}', 'AjaxController@crea_documento_trasporto');
 Route::any('ajax/crea_documento_rif/{cd_cf}/{cd_do}/{numero}/{data}/{numero_rif}/{data_rif}', 'AjaxController@crea_documento_rif');
 Route::any('ajax/cerca_articolo_smart/{q}/{cd_cf}', 'AjaxController@cerca_articolo_smart');
 Route::any('ajax/controllo_articolo_smart/{q}/{id_dotes}', 'AjaxController@controllo_articolo_smart');
 Route::any('ajax/esplodi/{id_dorig}', 'AjaxController@esplodi');
-
-/*
-<VirtualHost *:443>
-    ServerAdmin webmaster@dummy-host
-    DocumentRoot "C:\xampp\htdocs\ArcaLogistic_Bioplast\public"
-	SSLEngine on
-	SSLCertificateFile "C:\xampp\apache\conf\ssl.crt\server.crt"
-	SSLCertificateKeyFile "C:\xampp\apache\conf\ssl.key\server.key"
-    ServerName arcalogistic.local
-    ErrorLog "logs/arcalogistic_Bioplast.error.log"
-    CustomLog "logs/arcalogistic_Bioplast.access.log" common
-</VirtualHost>
-*/
-

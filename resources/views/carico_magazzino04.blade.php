@@ -307,8 +307,8 @@
 
         <div class="page-content">
             <div class="content-sticky-footer">
-                <input type="text" id="cerca_articolo2" <?php /*onchange="controllo_articolo_smart();check();" onkeydown="controllo_articolo_smart();check();" */?> autofocus autocomplete="off">
-
+                <input type="text" id="cerca_articolo2" onkeyup="check();" autofocus autocomplete="off">
+                <input type="hidden" id="lung" value="0">
 
                 <div class="background bg-125"><img src="/img/background.png" alt=""></div>
                 <div class="w-100">
@@ -346,8 +346,7 @@
                                     <div class="media-body">
                                         <div class="row">
                                             <div class="col-xs-6 col-sm-6 col-md-6">
-                                                <h5 <?php if($r->QtaEvadibile==0)echo 'style="color: red"'?>><?php echo $r->Cd_AR.' '.$r->Descrizione;?><br><?php echo 'Prezzo : '.round(floatval($r->PrezzoUnitarioV), 2);?><?php /* echo  'Magazzino di Partenza: '.$r->Cd_MG_P;if($r->Cd_MGUbicazione_A != null) echo ' - '.$r->Cd_MGUbicazione_A;?><br><?php echo' Magazzino di Arrivo: '.$r->Cd_MG_A;?><br><?php if($r->Cd_ARLotto != Null)echo 'Lotto: '.$r->Cd_ARLotto;*/ ?></h5>
-                                                <p <?php if($r->QtaEvadibile==0)echo 'style="color: red"'?>>Quantita Evadibile : <?php echo floatval($r->QtaEvadibile)?></p><p <?php if($r->QtaEvadibile==0)echo 'style="color: red"'?>>Quantita': <?php echo floatval($r->Qta) ?></p>
+                                                <h5 <?php if($r->QtaEvadibile==0)echo 'style="color: red"'?>><?php echo $r->Cd_AR.' '.$r->Descrizione;?><br><?php echo 'Prezzo : '.round(floatval($r->PrezzoUnitarioV), 2);?>  Qta: <?php echo floatval($r->QtaEvadibile)?><?php /* echo  'Magazzino di Partenza: '.$r->Cd_MG_P;if($r->Cd_MGUbicazione_A != null) echo ' - '.$r->Cd_MGUbicazione_A;?><br><?php echo' Magazzino di Arrivo: '.$r->Cd_MG_A;?><br><?php if($r->Cd_ARLotto != Null)echo 'Lotto: '.$r->Cd_ARLotto;*/ ?></h5>
                                             </div>
                                             <div class="col-xs-6 col-sm-6 col-md-6">
 
@@ -386,20 +385,6 @@
                             <?php } ?>
                         </ul>
                     </div>
-                <!--
-                    <div class="col-sm-6">
-                        <h3 style="text-align: center;margin-top: 25px">Riepilogo Documento</h3>
-                        <h3 style="float: left;text-align: left;padding-left: 20px">Imponibile</h3>
-                        <h3 style="float: right;text-align: right;padding-right: 20px">&nbsp;<?php /* echo number_format($documento->imponibile,2,',','.') ?>&nbsp;&euro;&nbsp;</h3><br><br>
-                        <h3 style="float: left;text-align: left;padding-left: 20px">Imposta&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</h3>
-                        <h3 style="float: right;text-align: right;padding-right: 20px">&nbsp;<?php echo number_format($documento->imposta,2,',','.') ?>&nbsp;&euro;&nbsp;</h3><br><br>
-                        <h3 style="float: left;text-align: left;padding-left: 20px">Totale&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</h3>
-                        <h3 style="float: right;text-align: right;padding-right: 20px">&nbsp;&nbsp;<?php echo number_format($documento->totale,2,',','.') */    ?>&nbsp;&euro;&nbsp;</h3><br><br>
-                    </div>
-
-                </div>
--->
-
 
                     <?php } ?>
                     <button style="margin-top:10px !important;width:80%;margin:0 auto;display:block;background-color:#007bff;border: #007bff" class="btn btn-primary" onclick="$('#modal_salva_documento').modal('show');">Salva Documento</button>
@@ -419,7 +404,7 @@
                 <div class="modal-content">
                     <div class="modal-header">
                         <h5 class="modal-title" id="exampleModalLabel">Carica Articolo</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close" onclick="location.reload()">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close" onclick="$('#modal_cerca_articolo').modal('hide');$('#cerca_articolo2').val('');$('#cerca_articolo2').focus()">
                             <span aria-hidden="true">×</span>
                         </button>
                     </div>
@@ -431,7 +416,7 @@
                     </div>
 
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal" onclick="location.reload()">Chiudi</button>
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal" onclick="$('#modal_cerca_articolo').modal('hide');$('#cerca_articolo2').val('');$('#cerca_articolo2').focus()">Chiudi</button>
                         <button type="button" class="btn btn-primary" onclick="cerca_articolo_smart();check();">Cerca Articolo</button>
                     </div>
                 </div>
@@ -446,7 +431,7 @@
                 <div class="modal-content">
                     <div class="modal-header">
                         <h5 class="modal-title" id="exampleModalLabel">Carica Articolo</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close" onclick="location.reload()">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close" onclick="$('#modal_lista_articoli').modal('hide');$('#cerca_articolo2').val('');$('#cerca_articolo2').focus()">
                             <span aria-hidden="true">×</span>
                         </button>
                     </div>
@@ -454,7 +439,7 @@
                     <div class="modal-body" id="ajax_lista_articoli"></div>
 
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal" onclick="location.reload()">Chiudi</button>
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal" onclick="$('#modal_lista_articoli').modal('hide');$('#cerca_articolo2').val('');$('#cerca_articolo2').focus()">Chiudi</button>
                     </div>
                 </div>
             </form>
@@ -467,7 +452,7 @@
                 <div class="modal-content">
                     <div class="modal-header">
                         <h5 class="modal-title" id="exampleModalLabel">Segnalazione</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close" onclick="location.reload()">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close" onclick="$('#modal_segnalazione<?php echo $r->Id_DORig?>').modal('hide');$('#cerca_articolo2').val('');$('#cerca_articolo2').focus()">
                             <span aria-hidden="true">×</span>
                         </button>
                     </div>
@@ -478,7 +463,7 @@
                         <input type="text" class="form-control" id="Segnalazione" value="" placeholder="Inserire Segnalazione..."  autocomplete="off">
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal" onclick="location.reload()">Chiudi</button>
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal" onclick="$('#modal_segnalazione<?php echo $r->Id_DORig?>').modal('hide');$('#cerca_articolo2').val('');$('#cerca_articolo2').focus()">Chiudi</button>
                         <button type="button" class="btn btn-primary" onclick="segnalazione();">Invia Segnalazione</button>
                     </div>
                 </div>
@@ -492,47 +477,19 @@
                 <div class="modal-content">
                     <div class="modal-header">
                         <h5 class="modal-title" id="exampleModalLabel">Carica Articolo</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close" onclick="location.reload()">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close" onclick="$('#modal_carico').modal('hide');$('#cerca_articolo2').val('');$('#cerca_articolo2').focus()">
                             <span aria-hidden="true">×</span>
                         </button>
                     </div>
                     <div class="modal-body">
                         <div id="ajax_modal_carico"></div>
-                        <input type="hidden" name="Cd_AR" id="modal_Cd_AR">
                         <label>Quantita</label>
                         <input class="form-control" type="number" id="modal_quantita" value="" required placeholder="Inserisci una Quantità" autocomplete="off" >
-                        <!--
-                            <label>Prezzo (&euro;)</label>
-                            <input class="form-control" type="number" id="modal_prezzo" value="" required placeholder="Inserisci un Prezzo" autocomplete="off">
-                            -->
-                        <?php /*
-                    <label>Magazzino Partenza</label>
-                    <select class="form-control" type="number" id="modal_magazzino_P" value="" required placeholder="Inserisci un Magazzino" autocomplete="off";>
-                        <?php /*foreach($magazzino_ord as $mp){?>
-                        <option><?php echo $mp->Cd_MG.' - '.$mp->Descrizione;?></option>
-                        <?php } *//*?>
-                    </select>
-                    <label>Magazzino Arrivo</label>
-                    <select class="form-control" type="number" id="modal_magazzino_A" value="" required placeholder="Inserisci un Magazzino" autocomplete="off";>
-                        <?php foreach($magazzino_ord as $mp){?>
-                        <option magazzino="<?php echo $mp->Cd_MG?>"><?php echo $mp->Cd_MG.' - '.$mp->Descrizione;?></option>
-                        <?php }?>
-                    </select>
-                    <?php if($documento->Cd_Do=='DTG'||$documento->Cd_Do=='DTR'){?>
-                    <label>Ubicazione di Arrivo</label><small>(Facoltativo)</small>
-                    <input type="text" class="form-control" id="modal_ubicazione_A" value="" placeholder="Inserire un Ubicazione..." autocomplete="off">
-                    <?php } ?>
-                    <label>Lotto</label>
-                    <select class="form-control" type="number" id="modal_lotto" value="" required placeholder="Inserisci un Lotto" autocomplete="off";>
-                    </select>
-                    */?>
-
-
-
+                        <input class="form-control" type="hidden" id="modal_Cd_AR" value="" required autocomplete="off" >
                     </div>
 
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal" onclick="location.reload()">Chiudi</button>
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal" onclick="$('#modal_carico').modal('hide');$('#cerca_articolo2').val('');$('#cerca_articolo2').focus()">Chiudi</button>
                         <button type="button" class="btn btn-primary" onclick="carica_articolo();">Carica Articolo</button>
                     </div>
                 </div>
@@ -571,7 +528,7 @@
                 <div class="modal-content">
                     <div class="modal-header">
                         <h5 class="modal-title" id="exampleModalLabel">Articolo da Evadere</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close" onclick="location.reload()">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close" onclick="$('#modal_lista_articoli_daevadere').modal('hide');$('#cerca_articolo2').val('');$('#cerca_articolo2').focus()">
                             <span aria-hidden="true">×</span>
                         </button>
                     </div>
@@ -592,8 +549,8 @@
                     </div>
 
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal" onclick="location.reload()">Chiudi</button>
-                        <button type="button" class="btn btn-primary" onclick="location.reload()">Evadi Riga</button>
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal" onclick="$('#modal_lista_articoli_daevadere').modal('hide');$('#cerca_articolo2').val('');$('#cerca_articolo2').focus()">Chiudi</button>
+                        <button type="button" class="btn btn-primary" onclick="$('#modal_lista_articoli_daevadere').modal('hide');$('#cerca_articolo2').val('');$('#cerca_articolo2').focus()">Evadi Riga</button>
                     </div>
                 </div>
             </form>
@@ -606,7 +563,7 @@
                 <div class="modal-content">
                     <div class="modal-header">
                         <h5 class="modal-title" id="exampleModalLabel">Modifica Articolo <?php echo $r->Cd_AR ?></h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close" onclick="location.reload()">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close" onclick="$('#modal_modifica_<?php  echo $r->Id_DORig ?>').modal('hide');$('#cerca_articolo2').val('');$('#cerca_articolo2').focus()">
                             <span aria-hidden="true">×</span>
                         </button>
                     </div>
@@ -635,7 +592,7 @@
                     </div>
                     <div class="modal-footer">
                         <input type="hidden" name="Id_DORig" value="<?php echo $r->Id_DORig ?>">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal" onclick="location.reload()">Chiudi</button>
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal" onclick="$('#modal_modifica_<?php  echo $r->Id_DORig ?>').modal('hide');$('#cerca_articolo2').val('');$('#cerca_articolo2').focus()">Chiudi</button>
                         <button type="submit" name="modifica_riga" value="Salva" class="btn btn-primary">Salva</button>
                     </div>
                 </div>
@@ -649,7 +606,7 @@
                 <div class="modal-content">
                     <div class="modal-header">
                         <h5 class="modal-title" id="exampleModalLabel">Righe non Evase</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close" onclick="location.reload()">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close" onclick="$('#modal_lista_salva').modal('hide');$('#cerca_articolo2').val('');$('#cerca_articolo2').focus()">
                             <span aria-hidden="true">×</span>
                         </button>
                     </div>
@@ -665,7 +622,7 @@
 
 
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal" onclick="location.reload()">Chiudi</button>
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal" onclick="$('#modal_lista_salva').modal('hide');$('#cerca_articolo2').val('');$('#cerca_articolo2').focus()">Chiudi</button>
                         <button type="button" class="btn btn-primary" onclick="invia();">Salva Documento</button>
                     </div>
                 </div>
@@ -678,7 +635,7 @@
                 <div class="modal-content">
                     <div class="modal-header">
                         <h5 class="modal-title" id="exampleModalLabel">Salvataggio Documento</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close" onclick="location.reload()">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close" onclick="$('#modal_salva_documento').modal('hide');$('#cerca_articolo2').val('');$('#cerca_articolo2').focus()">
                             <span aria-hidden="true">×</span>
                         </button>
                     </div>
@@ -689,7 +646,7 @@
                     </div>
 
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal" onclick="location.reload()">No</button>
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal" onclick="$('#modal_salva_documento').modal('hide');$('#cerca_articolo2').val('');$('#cerca_articolo2').focus()">No</button>
                         <button type="button" class="btn btn-primary" onclick="salva_documento();">Si</button>
                     </div>
                 </div>
@@ -699,7 +656,7 @@
 
     <div class="modal" id="modal_alertSegnalazione" tabindex="-1" role="dialog" aria-hidden="true">
         <div class="alert alert-success alert-dismissible fade show">
-            <button type="button" class="close" data-dismiss="alert" onclick="location.reload()">&times;</button>
+            <button type="button" class="close" data-dismiss="alert" onclick="$('#modal_alertSegnalazione').modal('hide');$('#cerca_articolo2').val('');$('#cerca_articolo2').focus()">&times;</button>
             <strong>Success!</strong><br> Segnalazione Effettuata</a>.
         </div>
     </div>
@@ -708,28 +665,28 @@
 
     <div class="modal" id="modal_alertQuantita" tabindex="-1" role="dialog" aria-hidden="true">
         <div class="alert alert-warning alert-dismissible fade show">
-            <button type="button" class="close" data-dismiss="alert" onclick="location.reload()">&times;</button>
+            <button type="button" class="close" data-dismiss="alert" onclick="$('#modal_alertQuantita').modal('hide');$('#cerca_articolo2').val('');$('#cerca_articolo2').focus()">&times;</button>
             <strong>Alert!</strong><br> Inserire una quantita </a>.
         </div>
     </div>
 
     <div class="modal" id="modal_alertInserimento" tabindex="-1" role="dialog" aria-hidden="true">
         <div class="alert alert-success alert-dismissible fade show">
-            <button type="button" class="close" data-dismiss="alert" onclick="location.reload()">&times;</button>
+            <button type="button" class="close" data-dismiss="alert" onclick="$('#modal_alertInserimento').modal('hide');$('#cerca_articolo2').val('');$('#cerca_articolo2').focus()">&times;</button>
             <strong>Success!</strong><br> Articolo Inserito Correttamente</a>.
         </div>
     </div>
 
     <div class="modal" id="modal_alertUbicazione" tabindex="-1" role="dialog" aria-hidden="true">
         <div class="alert alert-warning alert-dismissible fade show">
-            <button type="button" class="close" data-dismiss="alert" onclick="location.reload()">&times;</button>
+            <button type="button" class="close" data-dismiss="alert" onclick="$('#modal_alertUbicazione').modal('hide');$('#cerca_articolo2').val('');$('#cerca_articolo2').focus()">&times;</button>
             <strong>Alert!</strong><br> Ubicazione inserita non corretta o inesistente</a>.
         </div>
     </div>
 
     <div class="modal" id="modal_alertTrovare" tabindex="-1" role="dialog" aria-hidden="true">
         <div class="alert alert-warning alert-dismissible fade show">
-            <button type="button" class="close" data-dismiss="alert" onclick="location.reload()">&times;</button>
+            <button type="button" class="close" data-dismiss="alert" onclick="$('#modal_alertTrovare').modal('hide');$('#cerca_articolo2').val('');$('#cerca_articolo2').focus()">&times;</button>
             <strong>Alert!</strong><br> Nessun Articolo Trovato </a>.
         </div>
     </div>
@@ -757,12 +714,6 @@
     cd_cf =  '<?php echo $fornitore->Cd_CF ?>';
 
 
-    /* function cambioMagazzino(){
-         magazzino = $('#modal_magazzino_A').val()
-         $('#modal_ubicazione').children('option').hide();
-         $('#modal_ubicazione').children("option[magazzino^=" + magazzino.substring(0,5) + "]").show();
-
-     }*/
 
     function invia(){
         testo = 'Il documento (documento) è stato salvato.<br> Le righe del documento sono:';
@@ -799,15 +750,19 @@
     }
 
     function check(){
-        check = document.getElementById('cerca_articolo').value;
-        lunghezza = check.length;
-        if(check.substring(0,3)==']C1'){
-            document.getElementById('cerca_articolo').value=check.substring(3,lunghezza);
-            check = document.getElementById('cerca_articolo').value;
-            alert('GS1 Code aggiustato riprovare a cercare');
+        check2 = document.getElementById('cerca_articolo2').value;
+        lung  = document.getElementById('lung').value;
+
+        if(check2.length!= 0) {
+            if (lung == check2.length) {
+                cerca_articolo_smart();
+                document.getElementById('lung').value = 0;
+            } else {
+                document.getElementById('lung').value = check2.length;
+                const myTimeout = setTimeout(check, 1000);
+                return;
+            }
         }
-
-
     }
 
     function carica_articolo(){
@@ -820,7 +775,7 @@
         ubicazione_A  =    $('#modal_ubicazione_A').val();
         if(ubicazione_A == ''||ubicazione_A== null)
             ubicazione_A ='ND';
-        lotto     =      $('#modal_lotto').val();
+        lotto     =      0;
 
 
         if (quantita != '') {
@@ -833,8 +788,7 @@
                 if(result =='Ubicazione inserita inesistente in quel magazzino')
                     $('#modal_alertUbicazione').modal('show');
                 if(result =='Articolo Caricato Correttamente ')
-                    $('#modal_alertInserimento').modal('show');
-
+                    location.reload();
 
             });
 
@@ -867,61 +821,7 @@
             $('#modal_alertQuantita').modal('show');
 
     }
-    /*
-        function controllo_articolo_smart(){
 
-            testo = $('#cerca_articolo2').val();
-            testo  = testo.trimEnd();
-            id_dotes ='<?php echo $id_dotes?>';
-        id_dorig = "*****";
-
-        if(testo != '') {
-            $.ajax({
-                url: "<?php echo URL::asset('ajax/controllo_articolo_smart') ?>/" + encodeURIComponent(testo)+"/"+id_dotes,
-                context: document.body
-            }).done(function (result) {
-                if(result != '') {
-                    $('#modal_cerca_articolo').modal('hide');
-                    $('#modal_lista_articoli_daevadere').modal('show');
-                    $('#ajax_lista_articoli').html(result);
-                } else {
-                    alert('nessun prodotto trovato');
-                    segnalazioneControllo(id_dotes,id_dorig,testo);
-                    location.reload();
-                }
-            });
-
-        }
-
-    }
-
-    function segnalazioneControllo1(){
-
-        id_dotes    = $('#id_dotes_C').val();
-
-        id_dorig    =$('#id_dorig_C').val();
-
-        Segnalazione=$('#Segnalazione_C').val();
-
-        segnalazioneControllo(id_dotes,id_dorig,Segnalazione);
-    }
-    function segnalazioneControllo(id_dotes,id_dorig,Segnalazione){
-        if(id_dotes!=''){
-            $.ajax({
-                url: "<?php echo URL::asset('ajax/segnalazione') ?>/<?php echo $id_dotes ?>/"+ id_dorig + "/" + Segnalazione
-            }).done(function (result) {
-
-            });
-        }
-        if(id_dotes!=''){
-            $.ajax({
-                url: "<?php echo URL::asset('ajax/invia_mail') ?>/<?php echo $id_dotes ?>/"+ 1 + "/" + Segnalazione
-            }).done(function (result) {
-                location.reload();
-            });
-        }
-    }
-*/
     function salva_documento(){
 
         Cd_Do    = '0';
@@ -941,48 +841,8 @@
             });
 
     }
-    /*
-        function checkDoc(){
-<?php foreach($documento->righe as $r){ ?>
 
-    articolo = $('#modal_Cd_AR_c_<?php echo $r->Id_DORig?>').val();
-        quantita = $('#modal_Qta_c_<?php echo $r->Id_DORig?>').val();
-        lotto = $('#modal_Cd_ARLotto_c_<?php echo $r->Id_DORig?>').val();
-        id_dorig = '00000'
-        if (articolo != '' && quantita != '' && lotto != '') {
-            testo = 'Articolo ' + articolo + '******  del lotto ' + lotto + ' con quantita ' + quantita + ' non evaso ';
-            $.ajax({
-                url: "<?php echo URL::asset('ajax/segnalazione_salva') ?>/<?php echo $id_dotes ?>/" + id_dorig + "/" + testo
-            }).done(function (result) {
-                alert('Segnalazione Effettuata');
-                location.reload();
-            });
-        }
-        <?php } ?>
-    }
-    function crea_articolo(){
-
-        barcode = $('#modal_inserimento_barcode').val();
-        if(barcode != '') {
-            top.location.href = '/nuovo_articolo?redirect=/magazzino/carico4/<?php echo $fornitore->Id_CF ?>/<?php echo $id_dotes ?>&barcode=' + barcode;
-        }
-    }
-
-    document.addEventListener("keydown", function(e) {
-        if(e.which == 114){
-            console.log(e.which);
-            e.preventDefault();
-            $('#modal_cerca_articolo').modal('show');
-        } else if(e.which == 13){
-            e.preventDefault();
-        }
-    });
-
-    $('.modal').on('shown.bs.modal', function() {
-        $(this).find('[autofocus]').focus();
-    });*/
     function cerca_articolo_smart(){
-
         testo = $('#cerca_articolo').val();
         if(testo=='')
             testo = $('#cerca_articolo2').val(); testo  = testo.trimEnd();
@@ -995,8 +855,7 @@
             }).done(function (result) {
                 if(result != '') {
                     $('#modal_cerca_articolo').modal('hide');
-                    $('#modal_lista_articoli').modal('show');
-                    $('#ajax_lista_articoli').html(result);
+                    cerca_articolo_codice(result.trim());
                 } else
                     $('#modal_alertTrovare').modal('show');
             });
@@ -1005,33 +864,14 @@
 
     }
 
-    /*  $(document).scannerDetection({
-          timeBeforeScanTest: 200, // wait for the next character for upto 200ms
-          startChar: [120], // Prefix character for the cabled scanner (OPL6845R)
-          endChar: [13], // be sure the scan is complete if key 13 (enter) is detec
-          // ted
-          avgTimeByChar: 40, // it's not a barcode if a character takes longer than 40ms
-          onComplete: function(code, qty){
-
-              $.ajax({
-                  url: "/ajax/cerca_articolo_barcode/<?php echo $fornitore->Cd_CF ?>/"+code,
-                context: document.body
-            }).done(function(result) {
-
-                if(result != '') {
-                    $('#modal_carico').modal('show');
-                    $('#ajax_modal_carico').html(result);
-                    $('#modal_prezzo').focus();
-                } else {
-                    $('#modal_inserimento').modal('show');
-                    $('#modal_inserimento_barcode').val(code);
-                }
-            });
-
-        } // main callback function
-    });
-*/
     function cerca_articolo_codice(fornitore,codice,lotto,qta){
+
+        if(fornitore.length > 6) {
+            const myArray = fornitore.split("','");
+            codice = myArray[1];
+            lotto = myArray[2];
+            qta = myArray[3];
+        }
 
         $.ajax({
             url: "/ajax/cerca_articolo_codice/<?php echo $fornitore->Cd_CF ?>/"+codice+"/"+lotto+"/"+qta,

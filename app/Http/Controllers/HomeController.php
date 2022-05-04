@@ -281,7 +281,7 @@ class HomeController extends Controller{
 
     public function attivo(){
 
-        $documenti = DB::select('SELECT * FROM DO WHERE Cd_DO in (\'OC\',\'BO\',\'LPL\') and CliFor = \'C\'');
+        $documenti = DB::select('SELECT * FROM DO WHERE Cd_DO in (\'DDT\',\'LPL\') and CliFor = \'C\'');
         return View::make('attivo',compact('documenti'));
     }
 /*
@@ -552,7 +552,7 @@ class HomeController extends Controller{
 
         }
     }
-
+/*
     public function trasporto_fornitore($documenti){
 
         $fornitore = DB::select('SELECT * FROM Cf where Cd_CF in (\'F000143\',\'F000765\') Order By Id_Cf DESC');
@@ -687,7 +687,7 @@ class HomeController extends Controller{
             return View::make('trasporto_magazzino4', compact( 'Cd_Do', 'Cd_Cf', 'Cd_MG',  'Cd_Mg_A',  'Id_DoTes', 'doc'));
 
 }
-
+*/
     public function carico_magazzino4($id_fornitore,$id_dotes,Request $request){
         if(!session()->has('utente')) {
             return Redirect::to('login');
@@ -733,7 +733,7 @@ class HomeController extends Controller{
             {
                 $r->lotti = DB::select('SELECT * FROM ARLotto WHERE Cd_AR = \''.$r->Cd_AR.'\' AND DataScadenza > \''.$date.'\' ORDER BY TimeIns DESC');
             }
-
+            $righe = DB::select('SELECT count(Riga) as Righe from DORig where Id_DoTes in ('.$id_dotes.') and QtaEvadibile > \'0\'')[0]->Righe;
             /* $totali_documento = DB::select('SELECT * from DoTotali where Id_DoTes = \''.$id_dotes.'\'');
              if(sizeof($totali_documento) > 0) {
                  $documento->imponibile = $totali_documento[0]->TotImponibileE;
@@ -742,7 +742,7 @@ class HomeController extends Controller{
              }*/
             $articolo = DB::select('SELECT Cd_AR from DORig where Id_DoTes in ('.$id_dotes.') group by Cd_AR');
             $flusso= DB::SELECT('select * from DODOPrel where Cd_DO_Prelevabile =\''.$cd_do.'\'  ');
-            return View::make('carico_magazzino4', compact('fornitore', 'id_dotes', 'documento','articolo','flusso'));
+            return View::make('carico_magazzino4', compact('fornitore', 'id_dotes', 'documento','articolo','flusso','righe'));
 
         }
 
