@@ -307,7 +307,7 @@
 
         <div class="page-content">
             <div class="content-sticky-footer">
-                <input type="text" id="cerca_articolo2" onkeyup="check();" autofocus autocomplete="off">
+                <input style="height: 1px;width: 1px" type="text" id="cerca_articolo2" onkeyup="check();" autofocus autocomplete="off">
                 <input type="hidden" id="lung" value="0">
 
                 <div class="background bg-125"><img src="/img/background.png" alt=""></div>
@@ -329,7 +329,7 @@
                 -->
 
 
-                <button style="margin-top:35px !important;width:80%;margin:0 auto;display:block;margin-bottom:0;" class="btn btn-primary" onclick="$('#modal_cerca_articolo').modal('show');">Aggiungi Prodotto</button>
+                <button style="margin-top:-20px !important;width:80%;margin:0 auto;display:block;margin-bottom:0;" class="btn btn-primary" onclick="$('#modal_cerca_articolo').modal('show');">Aggiungi Prodotto</button>
                 <?php if(sizeof($documento->righe) > 0){ ?>
 
                 <div class="row">
@@ -647,7 +647,7 @@
 
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal" onclick="$('#modal_salva_documento').modal('hide');$('#cerca_articolo2').val('');$('#cerca_articolo2').focus()">No</button>
-                        <button type="button" class="btn btn-primary" onclick="salva_documento();">Si</button>
+                        <button type="button" class="btn btn-primary" onclick="top.location.href='/';">Si</button>
                     </div>
                 </div>
             </form>
@@ -672,7 +672,7 @@
 
     <div class="modal" id="modal_alertInserimento" tabindex="-1" role="dialog" aria-hidden="true">
         <div class="alert alert-success alert-dismissible fade show">
-            <button type="button" class="close" data-dismiss="alert" onclick="$('#modal_alertInserimento').modal('hide');$('#cerca_articolo2').val('');$('#cerca_articolo2').focus()">&times;</button>
+            <button type="button" class="close" data-dismiss="alert" onclick="location.reload()">&times;</button>
             <strong>Success!</strong><br> Articolo Inserito Correttamente</a>.
         </div>
     </div>
@@ -757,9 +757,10 @@
             if (lung == check2.length) {
                 cerca_articolo_smart();
                 document.getElementById('lung').value = 0;
+                document.getElementById('cerca_articolo2').value = '';
             } else {
                 document.getElementById('lung').value = check2.length;
-                const myTimeout = setTimeout(check, 1000);
+                const myTimeout = setTimeout(check, 100);
                 return;
             }
         }
@@ -836,7 +837,6 @@
 
                 $('#modal_salva_documento').modal('hide');
                 $('#modal_lista_salva').modal('show');
-                $('#ajax_lista_documenti_1').html(result);
 
             });
 

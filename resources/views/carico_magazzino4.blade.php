@@ -302,7 +302,7 @@
         <div class="page-content">
             <div class="content-sticky-footer">
 
-                <input  type="text" id="cerca_articolo2" onkeyup="check();" autofocus autocomplete="off">
+                <input style="width:1px;height: 1px" type="text" id="cerca_articolo2" onkeyup="check();" autofocus autocomplete="off">
                 <div class="background bg-125"><img src="/img/background.png" alt=""></div>
                 <div class="w-100">
                     <h1 class="text-center text-white title-background"><?php echo $fornitore->Descrizione ?><br><small><?php echo $documento->Cd_Do ?> N.<?php echo $documento->NumeroDoc ?> Del <?php echo date('d/m/Y',strtotime($documento->DataDoc)) ?></small></h1>
@@ -782,7 +782,7 @@
 
 <div class="modal" id="modal_alertEvase" tabindex="-1" role="dialog" aria-hidden="true">
     <div class="alert alert-success alert-dismissible fade show">
-        <button type="button" class="close" data-dismiss="alert" onclick="$('#modal_alertEvase').modal('hide');$('#cerca_articolo2').val('');$('#cerca_articolo2').focus()">&times;</button>
+        <button type="button" class="close" data-dismiss="alert" onclick="location.reload()">&times;</button>
         <strong>Success!</strong> <br>Le righe sono state completamente Evase</a>.
     </div>
 </div>
@@ -796,7 +796,7 @@
 
 <div class="modal" id="modal_alertInserimento" tabindex="-1" role="dialog" aria-hidden="true">
     <div class="alert alert-success alert-dismissible fade show">
-        <button type="button" class="close" data-dismiss="alert" onclick="$('#modal_alertInserimento').modal('hide');$('#cerca_articolo2').val('');$('#cerca_articolo2').focus()">&times;</button>
+        <button type="button" class="close" data-dismiss="alert" onclick="location.reload()">&times;</button>
         <strong>Success!</strong> <br>Articolo Inserito Correttamente</a>.
     </div>
 </div>
@@ -887,13 +887,14 @@
         check2 = document.getElementById('cerca_articolo2').value;
         lung  = document.getElementById('lung').value;
 
-        if(check2.length!= 0) {
+        if(check2.length != 0) {
             if (lung == check2.length) {
                 controllo_articolo_smart();
                 document.getElementById('lung').value = 0;
+                document.getElementById('cerca_articolo2').value = '';
             } else {
                 document.getElementById('lung').value = check2.length;
-                const myTimeout = setTimeout(check, 1000);
+                const myTimeout = setTimeout(check, 500);
                 return;
             }
         }

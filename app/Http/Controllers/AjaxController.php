@@ -682,18 +682,18 @@ class AjaxController extends Controller{
             exit();
         }
         else {
+            $date = date('Y/m/d',strtotime('today')) ;
             $controllo = DB::SELECT('SELECT * FROM DORIG WHERE Id_DORig = \''.$Id_DoRig.'\'')[0]->Id_DOTes;
             $controlli = DB::SELECT('SELECT * FROM DORIG WHERE Id_DOTes = \''.$controllo.'\'');
             foreach($controlli as $c){
-                $testata = DB::SELECT('SELECT * FROM DORIG WHERE Id_DORig_Evade = \''.$c->Id_DORig.'\' ORDER BY Id_DOTes DESC');
+                $testata = DB::SELECT('SELECT * FROM DORIG WHERE Id_DORig_Evade = \''.$c->Id_DORig.'\' and DataDoc = \''.$date.'\'');
                 if($testata!=null)
-                    if($testata[0]->Id_DOTes > $Id_DoTes)
-                        $Id_DoTes = $testata[0]->Id_DOTes;
+                    $Id_DoTes = $testata[0]->Id_DOTes;
             }
 
         }
         if($Id_DoTes == '0')
-            $Id_DoTes = '';
+        $Id_DoTes = '';
         $Id_DoTes_old = DB::SELECT('SELECT * from DoRig where id_dorig = \'' . $Id_DoRig . '\' ')[0]->Id_DOTes;
         $listino = DB::SELECT('SELECT * from DOTes where Id_DOTes = \'' . $Id_DoTes_old . '\' ');
         $insert_evasione['PrezzoUnitarioV'] =$controlli[0]->PrezzoUnitarioV;
