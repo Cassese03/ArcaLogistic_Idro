@@ -912,7 +912,7 @@ class AjaxController extends Controller{
         if(sizeof($listino)> 0)
             $listino = $listino[0]->Cd_LS_1;
         else
-            $listino = '00001';
+            $listino = 'BANCO';
         $insert_testata_ordine['Cd_LS_1'] = $listino;
         $insert_testata_ordine['Cd_CF'] = $cd_cf;
         $insert_testata_ordine['Cd_Do'] = $cd_do;
@@ -930,7 +930,7 @@ class AjaxController extends Controller{
         if(sizeof($listino)> 0)
             $listino = $listino[0]->Cd_LS_1;
         else
-            $listino = '00001';
+            $listino = 'BANCO';
         $insert_testata_ordine['Cd_LS_1'] = $listino;
         $insert_testata_ordine['Cd_CF'] = $cd_cf;
         $insert_testata_ordine['Cd_Do'] = $cd_do;
