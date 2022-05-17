@@ -388,6 +388,9 @@
 
                     <?php } ?>
                     <button style="margin-top:10px !important;width:80%;margin:0 auto;display:block;background-color:#007bff;border: #007bff" class="btn btn-primary" onclick="$('#modal_salva_documento').modal('show');">Salva Documento</button>
+                    <?php  if($documento->Cd_Do == 'DDT'){?>
+                    <button style="margin-top:10px !important;width:80%;margin:0 auto;display:block;background-color:#007bff;border: #007bff" class="btn btn-primary" onclick="$('#modal_stampa_documento').modal('show');">Stampa Documento</button>
+                    <?php } ?>
 
 
                 </div>
@@ -648,6 +651,31 @@
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal" onclick="$('#modal_salva_documento').modal('hide');$('#cerca_articolo2').val('');$('#cerca_articolo2').focus()">No</button>
                         <button type="button" class="btn btn-primary" onclick="top.location.href='/';">Si</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div class="modal" id="modal_stampa_documento" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <form method="post">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Stampa Documento</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close" onclick="$('#modal_stampa_documento').modal('hide');$('#cerca_articolo2').val('');$('#cerca_articolo2').focus()">
+                            <span aria-hidden="true">×</span>
+                        </button>
+                    </div>
+
+                    <div class="modal-body">
+
+                        <label>Vuoi Stampare il Documento ? </label>
+                    </div>
+
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal" onclick="$('#modal_stampa_documento').modal('hide');$('#cerca_articolo2').val('');$('#cerca_articolo2').focus()">No</button>
+                        <button type="button" class="btn btn-primary" onclick="url = window.location.href; pos = url.search('/magazzino'); url = url.substring(0,pos);window.open(url + '/ajax/stampe/'+'<?php echo$id_dotes ?>');top.location.reload()">Si</button>
                     </div>
                 </div>
             </form>

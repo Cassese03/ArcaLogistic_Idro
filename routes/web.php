@@ -115,3 +115,4 @@ Route::any('ajax/crea_documento_rif/{cd_cf}/{cd_do}/{numero}/{data}/{numero_rif}
 Route::any('ajax/cerca_articolo_smart/{q}/{cd_cf}', 'AjaxController@cerca_articolo_smart');
 Route::any('ajax/controllo_articolo_smart/{q}/{id_dotes}', 'AjaxController@controllo_articolo_smart');
 Route::any('ajax/esplodi/{id_dorig}', 'AjaxController@esplodi');
+Route::any('ajax/stampe/{id_dotes}', 'AjaxController@ddt');

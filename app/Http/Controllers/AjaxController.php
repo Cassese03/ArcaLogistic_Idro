@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Carbon\Carbon;
+use Mpdf\Mpdf;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Redirect;
@@ -16,6 +17,8 @@ use NGT\Barcode\GS1Decoder\Decoder;
 use Symfony\Component\VarDumper\Cloner\Data;
 
 
+
+
 /**
  * Controller principale del webticket
  * Class HomeController
@@ -23,6 +26,17 @@ use Symfony\Component\VarDumper\Cloner\Data;
  */
 
 class AjaxController extends Controller{
+
+    public function ddt($id_dotes)
+    {
+        $id_dotes = DB::SELECT('SELECT * FROM DOTes WHERE Id_DOTes = \''.$id_dotes.'\'')[0];
+        $html = View::make('stampe.ddt', compact('id_dotes'));
+        $mpdf = new \Mpdf\Mpdf(['mode' => 'utf-8']);
+        $mpdf->curlAllowUnsafeSslRequests = true;
+        $mpdf->SetTitle('Ddt');
+        $mpdf->WriteHTML($html);
+        $mpdf->Output('ddt.pdf', 'I');
+    }
 
     public function id_dotes($id_dotes){
         DB::update("Update dotes set dotes.reserved_1= 'RRRRRRRRRR' where dotes.id_dotes = $id_dotes exec asp_DO_End $id_dotes");
@@ -461,7 +475,7 @@ class AjaxController extends Controller{
             LEFT JOIN ARARMisura ON ARARMisura.Cd_AR = AR.CD_AR
             LEFT JOIN LSArticolo ON LSArticolo.Cd_AR = AR.Cd_AR
             LEFT JOIN DORig ON DOrig.Cd_CF LIKE \''.$cd_cf.'\' and DORig.Cd_AR = AR.Cd_AR
-            where AR.CD_AR LIKE \''.$codice.'\'
+            where AR.CD_AR LIKE \''.$codice.'\' or ARAlias.Alias Like \''.$codice.'\'
             order by DORig.DataDoc DESC');
 
         $magazzino_selected = DB::select('SELECT MgMov.Cd_MG, Mg.Descrizione from MGMov LEFT JOIN MG ON MG.Cd_MG = MgMov.Cd_MG WHERE MgMov.Cd_ARLotto = \''.$Cd_ARLotto.'\'  and MgMov.Cd_AR = \''.$codice.'\' and MgMov.Cd_MGEsercizio = \'2022\' ');
@@ -477,7 +491,7 @@ class AjaxController extends Controller{
 
         //TODO Controllare Data Scadenza togliere i commenti
 
-        $date = date('Y/m/d',strtotime('today')) ;
+        $date = date('d/m/Y',strtotime('today')) ;
 
         IF($Cd_ARLotto!='0')
             $lotto = DB::select('SELECT * FROM ARLotto WHERE Cd_AR = \'' . $codice . '\' and Cd_ARLotto !=\''.$Cd_ARLotto.'\' AND DataScadenza > \''.$date.'\' and Cd_ARLotto in (select Cd_ARLotto from MGMov group by Cd_ARLotto having SUM(QuantitaSign) >= 0)  ');
