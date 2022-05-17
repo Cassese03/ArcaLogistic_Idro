@@ -61,6 +61,14 @@
                                 </a>
                             </li>
                             <li class="list-group-item">
+                                <a href="<?php echo URL::asset('magazzino/carico2/LPL') ?>" class="media">
+                                    <div class="media-body">
+                                        <h5>LPL</h5>
+                                        <p>Crea il tuo LPL</p>
+                                    </div>
+                                </a>
+                            </li>
+                            <li class="list-group-item">
                                 <a href="<?php echo URL::asset('logout') ?>" class="media">
                                     <div class="media-body">
                                         <h5>Logout</h5>

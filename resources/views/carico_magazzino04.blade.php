@@ -575,13 +575,13 @@
 
                         <label>Quantita</label>
                         <input class="form-control" type="number" name="Qta" value="<?php echo floatval($r->Qta) ?>" required placeholder="Inserisci una Quantità" autocomplete="off" step="0.01">
-
+                    <?php /*
                         <label>Quantita Evadibile</label>
                         <input class="form-control" type="number" name="QtaEvadibile" value="<?php echo floatval($r->QtaEvadibile) ?>" required placeholder="Inserisci una Quantità" autocomplete="off" step="0.01">
 
                         <label>Prezzo</label>
                         <input class="form-control" type="number" name="PrezzoUnitarioV" value="<?php echo floatval($r->PrezzoUnitarioV) ?>" required placeholder="Inserisci un Prezzo" autocomplete="off" step="0.01" >
-
+*/?>
                     <!--
 
                     <label>Prezzo (&euro;)</label>

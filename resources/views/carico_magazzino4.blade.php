@@ -689,13 +689,13 @@
 
                     <label>Quantita</label>
                     <input class="form-control" type="number" name="Qta" value="<?php echo floatval($r->Qta) ?>" required placeholder="Inserisci una Quantità" autocomplete="off" step="0.01">
-
+                    <?php /*
                     <label>Quantita Evadibile</label>
                     <input class="form-control" type="number" name="QtaEvadibile" value="<?php echo floatval($r->QtaEvadibile) ?>" required placeholder="Inserisci una Quantità" autocomplete="off" step="0.01" >
 
                     <label>Prezzo</label>
                     <input class="form-control" type="number" name="PrezzoUnitarioV" value="<?php echo round(floatval($r->PrezzoUnitarioV), 2); ?>" required placeholder="Inserisci un Prezzo" autocomplete="off" step="0.01" >
-
+*/?>
                     <input class="form-control" type="hidden" name="modal_lotto_m" value="0"  autocomplete="off" >
 
                 </div>
