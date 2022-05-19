@@ -1,10 +1,17 @@
 <?php
-$fornitore = DB::SELECT('SELECT * FROM CF WHERE Cd_CF = \''.$id_dotes->Cd_CF.'\'')[0];
+
+$cliente = DB::SELECT('SELECT * FROM CF WHERE Cd_CF = \''.$id_dotes->Cd_CF.'\'')[0];
 $contatto = DB::SELECT('SELECT * FROM CFContatto WHERE Cd_CF = \''.$id_dotes->Cd_CF.'\'')[0];
 $dorig = DB::SELECT('SELECT * FROM DORIG WHERE Id_DOTes = \''.$id_dotes->Id_DoTes.'\'');
+DB::update("Update dotes set dotes.reserved_1= 'RRRRRRRRRR' where dotes.id_dotes = $id_dotes->Id_DoTes exec asp_DO_End $id_dotes->Id_DoTes");
 $date = date('Y/m/d',strtotime($id_dotes->DataDoc)) ;
 $pagamento =  DB::SELECT('SELECT * FROM PG WHERE Cd_PG = \''.$id_dotes->Cd_PG.'\'')[0];
 $dototali = DB::SELECT('SELECT * FROM DOTotali WHERE Id_DoTes = \''.$id_dotes->Id_DoTes.'\'')[0];
+$creazione = date('d/m/Y H:i:s',strtotime($id_dotes->TimeIns));
+$porto     = DB::SELECT('SELECT * FROM DOPorto where Cd_DOPorto =\''.$id_dotes->Cd_DoPorto.'\'')[0]->Descrizione;
+$trasporto = DB::SELECT('SELECT * FROM DOTrasporto where Cd_DOTrasporto =\''.$id_dotes->Cd_DoTrasporto.'\'')[0]->Descrizione;
+$spedizione= DB::SELECT('SELECT * FROM DOSped where Cd_DOSped =\''.$id_dotes->Cd_DoSped.'\'')[0]->Descrizione;
+$aspetto_beni = DB::SELECT('SELECT * FROM DOAspBene where Cd_DOAspBene =\''.$id_dotes->Cd_DoAspBene.'\'')[0]->Descrizione;
 $html = '<!DOCTYPE html>
 <html>
 <head>
@@ -25,13 +32,21 @@ $html = '<!DOCTYPE html>
 <div class="container">
     <img src="';$html.= URL::asset('img/ciao.jpg');$html .= '"alt="DDT" style="width:100%;z-index:1">
     <label style="position: absolute;top: 300px;left: 35px;z-index:10;font-size:10px">'.$id_dotes->Cd_CF.'</label>
-    <label style="position: absolute;top: 300px;left: 85px;z-index:10;font-size:10px">'.$fornitore->PartitaIva.'</label>
-    <label style="position: absolute;top: 300px;left: 180px;z-index:10;font-size:10px">'.$fornitore->CodiceFiscale.'</label>
+    <label style="position: absolute;top: 850px;left: 35px;z-index:10;font-size:10px">'; $html .= ($trasporto) ? $trasporto:''; $html.='</label>
+    <label style="position: absolute;top: 880px;left: 35px;z-index:10;font-size:10px">'; $html .= ($spedizione) ? $spedizione:''; $html.='</label>
+    <label style="position: absolute;top: 880px;left: 160px;z-index:10;font-size:10px">'; $html .= ($porto) ? $porto:''; $html.='</label>
+    <label style="position: absolute;top: 850px;left: 180px;z-index:10;font-size:10px">'; $html .= ($aspetto_beni) ? $aspetto_beni:''; $html.='</label>
+    <label style="position: absolute;top: 300px;left: 85px;z-index:10;font-size:10px">'.$cliente->PartitaIva.'</label>
+    <label style="position: absolute;top: 60px;left: 450px;z-index:10;font-size:10px">'.$cliente->Descrizione.'</label>
+    <label style="position: absolute;top: 80px;left: 450px;z-index:10;font-size:10px">'.$cliente->Indirizzo.'</label>
+    <label style="position: absolute;top: 100px;left: 450px;z-index:10;font-size:10px">'.$cliente->Cap.' - '.$cliente->Localita .'</label>
+    <label style="position: absolute;top: 300px;left: 180px;z-index:10;font-size:10px">'.$cliente->CodiceFiscale.'</label>
+    <label style="position: absolute;top: 1090px;left: 550px;z-index:10;font-size:10px"> Data di Creazione : '.$creazione.'</label>
     <label style="position: absolute;top: 300px;left: 590px;z-index:10;font-size:10px">'.$id_dotes->NumeroDoc.'</label>
     <label style="position: absolute;top: 300px;left: 300px;z-index:10;font-size:10px">'; $html .= ($contatto->Telefono) ? $contatto->Telefono:''; $html.='</label>
     <label style="position: absolute;top: 300px;left: 650px;z-index:10;font-size:10px">'.$date.'</label>
     <label style="position: absolute;top: 335px;left: 35px;z-index:10;font-size:10px">'.$pagamento->Descrizione.'</label>
-    <label style="position: absolute;top: 945px;left: 610px;z-index:10;font-size:10px">'.$dototali->TotDocumentoV.'</label>
+    <label style="position: absolute;top: 945px;left: 610px;z-index:10;font-size:10px">EUR. '.$dototali->TotDocumentoV.'</label>
     <label style="position: absolute;top: 335px;left: 300px;z-index:10;font-size:10px">'; $html .= ($id_dotes->Cd_CGConto_Banca) ? $id_dotes->Cd_CGConto_Banca:''; $html.='</label>
     <div style="text-align:left;position: absolute;top: 390px;left: 35px;z-index:10;font-size:10px">';
 foreach ($dorig as $d){
