@@ -647,15 +647,44 @@
 
                         <label>Vuoi Salvare il Documento ? </label>
                     </div>
-
+                    <?php //$('#modal_salva_documento').modal('hide');$('#cerca_articolo2').val('');$('#cerca_articolo2').focus()?>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal" onclick="$('#modal_salva_documento').modal('hide');$('#cerca_articolo2').val('');$('#cerca_articolo2').focus()">No</button>
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal" onclick="$('#modal_salva_documento').modal('hide');$('#modal_elimina_documento').modal('show');">No</button>
                         <button type="button" class="btn btn-primary" onclick="top.location.href='/';">Si</button>
                     </div>
                 </div>
             </form>
         </div>
     </div>
+
+    <div class="modal" id="modal_elimina_documento" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <form method="post">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Elimina Documento</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close" onclick="$('#modal_elimina_documento').modal('hide');$('#cerca_articolo2').val('');$('#cerca_articolo2').focus()">
+                            <span aria-hidden="true">×</span>
+                        </button>
+                    </div>
+
+                    <div class="modal-body">
+
+                        <label>Vuoi Eliminare il Documento ? </label>
+                    </div>
+                    <?php //$('#modal_salva_documento').modal('hide');$('#cerca_articolo2').val('');$('#cerca_articolo2').focus()?>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal" onclick="$('#modal_elimina_documento').modal('hide');$('#cerca_articolo2').val('');$('#cerca_articolo2').focus()">No</button>
+                        <button type="button" class="btn btn-primary" data-dismiss="modal" onclick="elimina()">Si</button>
+
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+
+
 
     <div class="modal" id="modal_stampa_documento" tabindex="-1" role="dialog" aria-hidden="true">
         <div class="modal-dialog" role="document">
@@ -741,6 +770,15 @@
 
     cd_cf =  '<?php echo $fornitore->Cd_CF ?>';
 
+    function elimina(){
+        $.ajax({
+            url: "<?php echo URL::asset('ajax/elimina') ?>/<?php echo $id_dotes ?>"
+        }).done(function (result) {
+            if(result =='Eliminato')
+                alert('Documento Eliminato Correttamente');
+                top.location.href='/';
+        });
+    }
 
 
     function invia(){

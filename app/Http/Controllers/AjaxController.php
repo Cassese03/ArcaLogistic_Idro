@@ -1256,7 +1256,11 @@ class AjaxController extends Controller{
         }
 
     }
-
+    public function elimina($id_dotes){
+        DB::table('DoRig')->where('Id_DOTes',$id_dotes)->delete();
+        DB::table('DOTes')->where('Id_DOTes',$id_dotes)->delete();
+        echo 'Eliminato';
+    }
     public function invia_mail($id_dotes,$id_dorig,$testo){
         if($id_dorig=='1') {
             if (substr($testo, 0, 2) == '01') {
