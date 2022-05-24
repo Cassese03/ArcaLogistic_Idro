@@ -95,6 +95,7 @@ Route::any('ajax/cerca_articolo_smart_inventario/{q}/{tipo}', 'AjaxController@ce
 Route::any('ajax/inserisci_lotto/{lotto}/{cd_ar}/{fornitore}/{descrizione}/{fornitore_pallet}/{pallet}', 'AjaxController@inserisci_lotto');
 Route::any('ajax/visualizza_lotti/{cd_ar}', 'AjaxController@visualizza_lotti');
 Route::any('ajax/elimina/{id_dotes}', 'AjaxController@elimina');
+Route::any('ajax/salva/{id_dotes}', 'AjaxController@salva');
 //Route::any('ajax/storialotto/{cd_ar}/{lotto}', 'AjaxController@storialotto');
 Route::any('ajax/segnalazione/{dotes}/{dorig}/{testo}', 'AjaxController@segnalazione');
 Route::any('ajax/invia_mail/{dotes}/{dorig}/{testo}', 'AjaxController@invia_mail');

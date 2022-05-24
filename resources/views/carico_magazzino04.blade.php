@@ -650,7 +650,7 @@
                     <?php //$('#modal_salva_documento').modal('hide');$('#cerca_articolo2').val('');$('#cerca_articolo2').focus()?>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal" onclick="$('#modal_salva_documento').modal('hide');$('#modal_elimina_documento').modal('show');">No</button>
-                        <button type="button" class="btn btn-primary" onclick="top.location.href='/';">Si</button>
+                        <button type="button" class="btn btn-primary" onclick="salva_doc()">Si</button>
                     </div>
                 </div>
             </form>
@@ -769,6 +769,16 @@
 <script type="text/javascript">
 
     cd_cf =  '<?php echo $fornitore->Cd_CF ?>';
+
+
+    function salva_doc(){
+        $.ajax({
+            url: "<?php echo URL::asset('ajax/salva') ?>/<?php echo $id_dotes ?>"
+        }).done(function (result) {
+            top.location.href='/';
+        });
+    }
+
 
     function elimina(){
         $.ajax({
