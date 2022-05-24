@@ -329,7 +329,7 @@
                 -->
 
 
-                <button style="margin-top:-20px !important;width:80%;margin:0 auto;display:block;margin-bottom:0;" class="btn btn-primary" onclick="$('#modal_cerca_articolo').modal('show');">Aggiungi Prodotto</button>
+                <button style="margin-top:20px !important;width:80%;margin:0 auto;display:block;margin-bottom:0;" class="btn btn-primary" onclick="$('#modal_cerca_articolo').modal('show');">Aggiungi Prodotto</button>
                 <?php if(sizeof($documento->righe) > 0){ ?>
 
                 <div class="row">
@@ -403,7 +403,6 @@
 
     <div class="modal" id="modal_cerca_articolo" tabindex="-1" role="dialog" aria-hidden="true">
         <div class="modal-dialog" role="document">
-            <form method="post">
                 <div class="modal-content">
                     <div class="modal-header">
                         <h5 class="modal-title" id="exampleModalLabel">Carica Articolo</h5>
@@ -423,7 +422,6 @@
                         <button type="button" class="btn btn-primary" onclick="cerca_articolo_smart();check();">Cerca Articolo</button>
                     </div>
                 </div>
-            </form>
         </div>
     </div>
 
@@ -476,7 +474,6 @@
     <?php } ?>
     <div class="modal" id="modal_carico" tabindex="-1" role="dialog" aria-hidden="true">
         <div class="modal-dialog" role="document">
-            <form method="post">
                 <div class="modal-content">
                     <div class="modal-header">
                         <h5 class="modal-title" id="exampleModalLabel">Carica Articolo</h5>
@@ -496,7 +493,6 @@
                         <button type="button" class="btn btn-primary" onclick="carica_articolo();">Carica Articolo</button>
                     </div>
                 </div>
-            </form>
         </div>
     </div>
 

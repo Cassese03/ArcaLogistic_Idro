@@ -410,7 +410,6 @@
 
 <div class="modal" id="modal_cerca_articolo" tabindex="-1" role="dialog" aria-hidden="true">
     <div class="modal-dialog" role="document">
-        <form method="post">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="exampleModalLabel">Carica Articolo</h5>
@@ -430,7 +429,6 @@
                     <button type="button" class="btn btn-primary" onclick="cerca_articolo_smart();">Cerca Articolo</button>
                 </div>
             </div>
-        </form>
     </div>
 </div>
 
@@ -623,7 +621,6 @@
 
 <div class="modal" id="modal_carico" tabindex="-1" role="dialog" aria-hidden="true">
     <div class="modal-dialog" role="document">
-        <form method="post">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="exampleModalLabel">Carica Articolo</h5>
@@ -644,7 +641,6 @@
                     <button type="button" class="btn btn-primary" onclick="carica_articolo();">Carica Articolo</button>
                 </div>
             </div>
-        </form>
     </div>
 </div>
 

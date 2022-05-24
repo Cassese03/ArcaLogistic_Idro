@@ -1,5 +1,4 @@
 <?php
-
 $cliente = DB::SELECT('SELECT * FROM CF WHERE Cd_CF = \''.$id_dotes->Cd_CF.'\'')[0];
 $contatto = DB::SELECT('SELECT * FROM CFContatto WHERE Cd_CF = \''.$id_dotes->Cd_CF.'\'')[0];
 $dorig = DB::SELECT('SELECT * FROM DORIG WHERE Id_DOTes = \''.$id_dotes->Id_DoTes.'\'');
@@ -30,8 +29,8 @@ $html = '<!DOCTYPE html>
             text-align: center;
         }
         body{
-            width: 21cm;
-            height: 29.7cm;
+            width: 20.9cm;
+            height: 29.5cm;
        }
     </style>
 </head>
@@ -113,6 +112,9 @@ $html .='
 </div>
 
 </body>
+<script type="text/javascript">
+        window.print();
+</script>
 </html>';
 echo $html;exit();
 
