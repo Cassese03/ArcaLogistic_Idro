@@ -281,7 +281,7 @@ class HomeController extends Controller{
 
     public function attivo(){
 
-        $documenti = DB::select('SELECT * FROM DO WHERE Cd_DO in (\'DDT\',\'LPL\') and CliFor = \'C\'');
+        $documenti = DB::select('SELECT * FROM DO WHERE Cd_DO in (\'DDT\',\'LPL\',\'RCF\') and CliFor = \'C\'');
         return View::make('attivo',compact('documenti'));
     }
     /*
@@ -528,7 +528,7 @@ class HomeController extends Controller{
         $fornitori = DB::select('SELECT * from CF where Id_CF = '.$id_fornitore.' order by Id_CF desc');
         if(sizeof($fornitori) > 0) {
             $fornitore = $fornitori[0];
-            $documenti = DB::select('SELECT TOP 10 [Id_DoTes],[NumeroDoc],[DataDoc],[NumeroDocRif],[DataDocRif]  from DOTes where Cd_CF = \''.$fornitore->Cd_CF.'\' and Cd_DO = \''.$cd_do.'\'  AND  DATEDIFF(DAY,GETDATE(),TimeIns) > -7 order by Id_DOTes DESC');
+            $documenti = DB::select('SELECT TOP 10 [Id_DoTes],[NumeroDoc],[DataDoc],[NumeroDocRif],[DataDocRif]  from DOTes where Cd_CF = \''.$fornitore->Cd_CF.'\' and Cd_DO = \''.$cd_do.'\'   order by Id_DOTes DESC');
             $numero_documento = DB::select('SELECT MAX(numeroDoc)+1 as num from DOTes WHERE Cd_MGEsercizio = \'2022\' and Cd_DO = \''.$cd_do.'\'')[0]->num;
             $dodo = DB::SELECT('select * from DODOPrel where Cd_DO = \''.$cd_do.'\'');
             foreach ($dodo as $d){

@@ -511,10 +511,8 @@ class AjaxController extends Controller{
                 $('#modal_quantita').val(<?php echo intval($articolo->UMFatt) ?>);
                 <?php } else {*/if($articolo->PrezzoUnitarioV){ ?>
                 $('#modal_prezzo').val('<?php echo number_format($articolo->PrezzoUnitarioV,2,'.','') ?>');
-                $('#modal_quantita').val(<?php echo intval($articolo->UMFatt) ?>);
                 <?php } else { ?>
                 $('#modal_prezzo').val('<?php echo number_format($articolo->Prezzo,2,'.','') ?>');
-                $('#modal_quantita').val(<?php echo intval($articolo->UMFatt) ?>);
                 <?php } ?>
                 $('#modal_lotto').html
                 <?php if($Cd_ARLotto!='0'){ ?>
@@ -531,7 +529,6 @@ class AjaxController extends Controller{
                 <?php foreach($magazzini as $m){?>
                 $('#modal_magazzino_P').append('<option><?php echo $m->Cd_MG.' - '.$m->Descrizione ?></option>')
                 <?php } ?>
-                $('#modal_quantita').val('<?php echo ($qta != 'ND\'') ? $qta : 1 ?>');
                 $('#modal_Cd_AR').val('<?php echo $articolo->Cd_AR ?>');
 
 
@@ -565,10 +562,8 @@ class AjaxController extends Controller{
                     $('#modal_Cd_AR').val('<?php echo $articolo->Cd_AR ?>');
                     <?php if($articolo->PrezzoUnitarioV){ ?>
                     $('#modal_prezzo').val('<?php echo number_format($articolo->PrezzoUnitarioV,2,'.','') ?>');
-                    $('#modal_quantita').val(<?php echo intval($articolo->UMFatt) ?>);
                     <?php } else { ?>
                     $('#modal_prezzo').val('<?php echo number_format($articolo->Prezzo,2,'.','') ?>');
-                    $('#modal_quantita').val(<?php echo intval($articolo->UMFatt) ?>);
                     <?php }?>
                     $('#modal_lotto').html
                     <?php if($Cd_ARLotto!='0'){ ?>

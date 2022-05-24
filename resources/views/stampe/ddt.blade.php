@@ -8,10 +8,18 @@ $date = date('Y/m/d',strtotime($id_dotes->DataDoc)) ;
 $pagamento =  DB::SELECT('SELECT * FROM PG WHERE Cd_PG = \''.$id_dotes->Cd_PG.'\'')[0];
 $dototali = DB::SELECT('SELECT * FROM DOTotali WHERE Id_DoTes = \''.$id_dotes->Id_DoTes.'\'')[0];
 $creazione = date('d/m/Y H:i:s',strtotime($id_dotes->TimeIns));
-$porto     = DB::SELECT('SELECT * FROM DOPorto where Cd_DOPorto =\''.$id_dotes->Cd_DoPorto.'\'')[0]->Descrizione;
-$trasporto = DB::SELECT('SELECT * FROM DOTrasporto where Cd_DOTrasporto =\''.$id_dotes->Cd_DoTrasporto.'\'')[0]->Descrizione;
-$spedizione= DB::SELECT('SELECT * FROM DOSped where Cd_DOSped =\''.$id_dotes->Cd_DoSped.'\'')[0]->Descrizione;
-$aspetto_beni = DB::SELECT('SELECT * FROM DOAspBene where Cd_DOAspBene =\''.$id_dotes->Cd_DoAspBene.'\'')[0]->Descrizione;
+$porto = DB::SELECT('SELECT * FROM DOPorto where Cd_DOPorto =\''.$id_dotes->Cd_DoPorto.'\'');
+if(sizeof($porto) > 0)
+    $porto = $porto[0]->Descrizione;
+$trasporto = DB::SELECT('SELECT * FROM DOTrasporto where Cd_DOTrasporto =\''.$id_dotes->Cd_DoTrasporto.'\'');
+if(sizeof($trasporto) > 0)
+    $trasporto = $trasporto[0]->Descrizione;
+$spedizione= DB::SELECT('SELECT * FROM DOSped where Cd_DOSped =\''.$id_dotes->Cd_DoSped.'\'');
+if(sizeof($spedizione) > 0)
+    $spedizione = $spedizione[0]->Descrizione;
+$aspetto_beni = DB::SELECT('SELECT * FROM DOAspBene where Cd_DOAspBene =\''.$id_dotes->Cd_DoAspBene.'\'');
+if(sizeof($aspetto_beni) > 0)
+    $aspetto_beni = $aspetto_beni[0]->Descrizione;
 $html = '<!DOCTYPE html>
 <html>
 <head>
