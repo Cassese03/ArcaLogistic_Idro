@@ -469,6 +469,8 @@ class AjaxController extends Controller{
     }
 
     public function cerca_articolo_codice($cd_cf,$codice,$Cd_ARLotto,$qta){
+        $codice = str_replace("slash","/",$codice);
+
 
         $articoli = DB::select('SELECT AR.Id_AR,AR.Cd_AR,AR.Descrizione,ARAlias.Alias as barcode,ARARMisura.UMFatt,DORig.PrezzoUnitarioV,LSArticolo.Prezzo from AR
             LEFT JOIN ARAlias ON AR.Cd_AR = ARAlias.Cd_AR
@@ -957,6 +959,7 @@ class AjaxController extends Controller{
     }
 
     public function aggiungi_articolo_ordine($id_ordine,$codice,$quantita,$magazzino_A,$ubicazione_A,$lotto,$magazzino_P,$ubicazione_P){
+        $codice = str_replace('slash','/',$codice);
         $i = 0;
         $magazzini = DB::SELECT('SELECT * FROM MGUbicazione WHERE Cd_MG=\''.$magazzino_A.'\'');
         foreach($magazzini as $m){
@@ -1004,6 +1007,7 @@ class AjaxController extends Controller{
     }
 */
     public function cerca_articolo_smart($q,$cd_cf){
+        $q =  str_replace("slash","/",$q);
             $qta='ND';/*
             $decoder = new Decoder($delimiter = '');
             $barcode = $decoder->decode($q);

@@ -1013,6 +1013,8 @@
     function carica_articolo(){
 
         codice      =      $('#modal_Cd_AR').val();
+        pos = codice.search('/');
+        if(pos !=(-1)){ codice = codice.substr(0,pos)+'slash'+codice.substr(pos+1)}
         quantita    =      $('#modal_quantita').val();
         magazzino_A =      '00001 - Magazzino Centrale';
         magazzino_P =      '00001 - Magazzino Centrale';
@@ -1070,6 +1072,8 @@
     function cerca_articolo_smart(){
 
         testo = $('#cerca_articolo').val();
+        pos = testo.search('/');
+        if(pos !=(-1)){ testo = testo.substr(0,pos)+'slash'+testo.substr(pos+1)}
         testo  = testo.trimEnd();
 
         if(testo != '') {
@@ -1080,6 +1084,8 @@
             }).done(function (result) {
                 if(result != '') {
 
+                    pos = result.search('/');
+                    if(pos !=(-1)){ result = result.substr(0,pos)+'slash'+result.substr(pos+1)}
                     $('#modal_cerca_articolo').modal('hide');
                     cerca_articolo_codice(result);
                 } else

@@ -851,6 +851,8 @@
     function carica_articolo(){
 
         codice    =      $('#modal_Cd_AR').val();
+        pos = codice.search('/');
+        if(pos !=(-1)){ codice = codice.substr(0,pos)+'slash'+codice.substr(pos+1)}
         quantita  =      $('#modal_quantita').val();
         /* prezzo    =      $('#modal_prezzo').val();*/
         magazzino_A =      '00001 - Magazzino Centrale';
@@ -929,6 +931,8 @@
         if(testo=='')
             testo = $('#cerca_articolo2').val(); testo  = testo.trimEnd();
 
+        pos = testo.search('/');
+        if(pos !=(-1)){ testo = testo.substr(0,pos)+'slash'+testo.substr(pos+1)}
         if(testo != '') {
 
             $.ajax({
@@ -936,6 +940,9 @@
                 context: document.body
             }).done(function (result) {
                 if(result != '') {
+
+                    pos = result.search('/');
+                    if(pos !=(-1)){ result = result.substr(0,pos)+'slash'+result.substr(pos+1)}
                     $('#modal_cerca_articolo').modal('hide');
                     cerca_articolo_codice(result.trim());
                 } else
