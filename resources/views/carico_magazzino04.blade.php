@@ -646,7 +646,11 @@
                     <?php //$('#modal_salva_documento').modal('hide');$('#cerca_articolo2').val('');$('#cerca_articolo2').focus()?>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal" onclick="$('#modal_salva_documento').modal('hide');$('#modal_elimina_documento').modal('show');">No</button>
+                        <?php if( $documento->Cd_Do == 'DDT'){?>
                         <button type="button" class="btn btn-primary" onclick="salva_doc()">Si</button>
+                        <?php }else{?>
+                        <button type="button" class="btn btn-primary" onclick="top.location.href='/'">Si</button>
+                    <?php }?>
                     </div>
                 </div>
             </form>
@@ -766,6 +770,12 @@
 
     cd_cf =  '<?php echo $fornitore->Cd_CF ?>';
 
+    document.addEventListener('keypress', function (e) {
+        if (e.key === 'Enter') {
+            let el = document.querySelector( ':focus' );
+            if( el ) el.blur();
+        }
+    });
 
     function salva_doc(){
         $.ajax({

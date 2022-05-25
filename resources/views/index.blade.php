@@ -61,6 +61,14 @@
                                 </a>
                             </li>
                             <li class="list-group-item">
+                                <a href="<?php echo URL::asset('magazzino/carico2/DDT') ?>" class="media">
+                                    <div class="media-body">
+                                        <h5>DDT</h5>
+                                        <p>Crea il tuo DDT</p>
+                                    </div>
+                                </a>
+                            </li>
+                            <li class="list-group-item">
                                 <a href="<?php echo URL::asset('magazzino/carico2/LPL') ?>" class="media">
                                     <div class="media-body">
                                         <h5>LPL</h5>
