@@ -26,7 +26,7 @@
                 <div class="input-group-prepend">
                     <button type="button" class="input-group-text close-search"><i class="material-icons">keyboard_backspace</i></button>
                 </div>
-                <input type="text" id="cerca" class="form-control border-0" placeholder="Cerca Cliente..." aria-label="Username">
+                <input type="text" id="cerca" class="form-control border-0" placeholder="Cerca Cliente..." aria-label="Username" >
                 <input type="hidden" id="dest" value="<?php echo $dest; ?>">
             </div>
         </form>
@@ -38,7 +38,7 @@
                 <a href="#" class="logo"><figure><img src="/img/logo_arca.png" alt=""></figure>Scelta  Cliente</a>
             </div>
             <div class="right">
-                <a href="javascript:void(0)" class="searchbtn"><i class="material-icons">search</i></a>
+                <a href="javascript:void(0)" class="searchbtn" onclick="document.getElementById('cerca').focus();"><i class="material-icons">search</i></a>
             </div>
         </header>
 

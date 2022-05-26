@@ -37,7 +37,7 @@
                 <a href="#" class="logo"><figure><img src="/img/logo_arca.png" alt=""></figure>Scelta Fornitore</a>
             </div>
             <div class="right">
-                <a href="javascript:void(0)" class="searchbtn"><i class="material-icons">search</i></a>
+                <a href="javascript:void(0)" class="searchbtn" onclick="document.getElementById('cerca').focus();"><i class="material-icons">search</i></a>
             </div>
         </header>
 
