@@ -928,6 +928,12 @@ class AjaxController extends Controller{
         $insert_testata_ordine['Cd_CF'] = $cd_cf;
         $insert_testata_ordine['Cd_Do'] = $cd_do;
         $insert_testata_ordine['NumeroDoc'] = $numero;
+        $insert_testata_ordine['Cd_DoSped'] = '02';
+        $insert_testata_ordine['Cd_DoPorto'] = '01';
+        $insert_testata_ordine['Cd_DoTrasporto'] = '001';
+        $insert_testata_ordine['Cd_DoAspBene'] = 'AV';
+        $ora = date('d/m/Y h:i:s',strtotime('now'));
+        $insert_testata_ordine['TrasportoDataOra'] = $ora;
         $data = str_replace('-','',$data);
         $insert_testata_ordine['DataDoc'] = $data;
         $Id_DoTes = DB::table('DOTes')->insertGetId($insert_testata_ordine);
@@ -942,6 +948,10 @@ class AjaxController extends Controller{
             $listino = $listino[0]->Cd_LS_1;
         else
             $listino = 'BANCO';
+        if(sizeof($listino)> 0)
+            if($listino[0]->Cd_PG != null)
+                $insert_testata_ordine['Cd_PG'] = $listino[0]->Cd_PG;
+        $insert_testata_ordine['Cd_CGConto_banca'] ='03040101002';
         $insert_testata_ordine['Cd_LS_1'] = $listino;
         $insert_testata_ordine['Cd_CF'] = $cd_cf;
         $insert_testata_ordine['Cd_Do'] = $cd_do;
@@ -954,6 +964,13 @@ class AjaxController extends Controller{
         }
         if($data_rif != '0')
         $insert_testata_ordine['DataDocRif'] = $data_rif;
+        $insert_testata_ordine['Cd_DoSped'] = '02';
+        $insert_testata_ordine['Cd_DoPorto'] = '01';
+        $insert_testata_ordine['Cd_DoTrasporto'] = '001';
+        $insert_testata_ordine['Cd_DoAspBene'] = 'AV';
+        date_default_timezone_set('Europe/Rome');
+        $ora = date('d/m/Y h:i:s',strtotime('now'));
+        $insert_testata_ordine['TrasportoDataOra'] = $ora;
         $Id_DoTes = DB::table('DOTes')->insertGetId($insert_testata_ordine);
         echo $Id_DoTes;
     }
