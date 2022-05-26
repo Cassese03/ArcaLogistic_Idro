@@ -37,7 +37,8 @@ $html = '<!DOCTYPE html>
 <body>
 
 <div class="container">
-    <img src="';$html.= URL::asset('img/ciao.jpg');$html .= '"alt="DDT" style="width:100%;z-index:1">
+    <img src="';$html.= URL::asset('img/DDT.jpg');$html .= '" alt="DDT" style="width:100%;z-index:1">
+    <label style="position: absolute;top: 265px;left: 35px;z-index:10;font-size:10px">Utente</label>
     <label style="position: absolute;top: 300px;left: 35px;z-index:10;font-size:10px">'.$id_dotes->Cd_CF.'</label>
     <label style="position: absolute;top: 850px;left: 35px;z-index:10;font-size:10px">'; $html .= ($trasporto) ? $trasporto:''; $html.='</label>
     <label style="position: absolute;top: 880px;left: 35px;z-index:10;font-size:10px">'; $html .= ($spedizione) ? $spedizione:''; $html.='</label>
