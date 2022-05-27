@@ -391,6 +391,9 @@
                     <?php  if($documento->Cd_Do == 'DDT'){?>
                     <button style="margin-top:10px !important;width:80%;margin:0 auto;display:block;background-color:#007bff;border: #007bff" class="btn btn-primary" onclick="$('#modal_stampa_documento').modal('show');">Stampa Documento</button>
                     <?php } ?>
+                    <?php  if($documento->Cd_Do == 'RCF'){?>
+                    <button style="margin-top:10px !important;width:80%;margin:0 auto;display:block;background-color:#007bff;border: #007bff" class="btn btn-primary" onclick="$('#modal_stampa_documento').modal('show');">Stampa Documento</button>
+                    <?php } ?>
 
 
                 </div>
