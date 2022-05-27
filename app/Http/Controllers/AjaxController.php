@@ -940,6 +940,7 @@ class AjaxController extends Controller{
         $insert_testata_ordine['Cd_CF'] = $cd_cf;
         $insert_testata_ordine['Cd_Do'] = $cd_do;
         $insert_testata_ordine['NumeroDoc'] = $numero;
+        $insert_testata_ordine['Modificabile'] = 0 ;
         $insert_testata_ordine['Cd_DoSped'] = '02';
         $insert_testata_ordine['Cd_DoPorto'] = '01';
         $insert_testata_ordine['Cd_DoTrasporto'] = '001';
@@ -968,6 +969,7 @@ class AjaxController extends Controller{
         $insert_testata_ordine['Cd_CF'] = $cd_cf;
         $insert_testata_ordine['Cd_Do'] = $cd_do;
         $insert_testata_ordine['NumeroDoc'] = $numero;
+        $insert_testata_ordine['Modificabile'] = 0 ;
         $data = str_replace('-','',$data);
         $insert_testata_ordine['DataDoc'] = $data;
         if($numero_rif != '0') {
