@@ -33,7 +33,10 @@ $html = '<!DOCTYPE html>
             text-align: center;
         }
         body{
-            margin: 0;
+            margin-left: 0px;
+            margin-right: 0px;
+            margin-top: 0px;
+            margin-bottom: 0px;
             padding: 0;
             width: 21cm;
             height: 29.7cm;
