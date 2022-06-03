@@ -24,7 +24,11 @@ if(sizeof($aspetto_beni) > 0)
     $aspetto_beni = $aspetto_beni[0]->Descrizione;
 //$banca = 'IT-62-C-C0200876312-000401045594 BANCA UNICREDIT';
 $banca = DB::SELECT('SELECT * FROM Banca where Cd_CGConto = \''.$id_dotes->Cd_CGConto_Banca.'\' ');
-$banca = $banca[0]->Iban;
+$banca2 = $banca[0]->Iban;
+$banca2 .= ' - ';
+$banca2 .= $banca[0]->Descrizione;
+$banca  = $banca2;
+
 $html = '<!DOCTYPE html>
 <html>
 <head>

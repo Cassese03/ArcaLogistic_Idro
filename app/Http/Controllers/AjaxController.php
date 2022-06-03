@@ -953,7 +953,6 @@ class AjaxController extends Controller{
             $insert_testata_ordine['TrasportoDataOra'] = $ora;
         }
         $insert_testata_ordine['Cd_CGConto_Banca'] = ($fornitore[0]->Cd_CGConto_Banca)? $fornitore[0]->Cd_CGConto_Banca:'';
-
         $data = str_replace('-','',$data);
         $insert_testata_ordine['DataDoc'] = $data;
         $Id_DoTes = DB::table('DOTes')->insertGetId($insert_testata_ordine);
