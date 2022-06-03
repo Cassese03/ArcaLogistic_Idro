@@ -57,75 +57,73 @@ $html = '<!DOCTYPE html>
 <body>
 
 <div class="container">
-    <img src="';$html.= URL::asset('img/rcf.jpg');$html .= '" alt="DDT" style="width:100%;z-index:1">
-    <label style="position: absolute;top: 265px;left: 35px;z-index:10;font-size:10px">Utente</label>
-    <label style="position: absolute;top: 300px;left: 35px;z-index:10;font-size:10px">'.$id_dotes->Cd_CF.'</label>
-    <label style="position: absolute;top: 850px;left: 35px;z-index:10;font-size:10px">'; $html .= ($trasporto) ? $trasporto:''; $html.='</label>
-    <label style="position: absolute;top: 880px;left: 35px;z-index:10;font-size:10px">'; $html .= ($spedizione) ? $spedizione:''; $html.='</label>
-    <label style="position: absolute;top: 880px;left: 160px;z-index:10;font-size:10px">'; $html .= ($porto) ? $porto:''; $html.='</label>
-    <label style="position: absolute;top: 880px;left: 300px;z-index:10;font-size:10px">'; $html .= ($data_trasporto) ? $data_trasporto:''; $html.='</label>
-    <label style="position: absolute;top: 850px;left: 180px;z-index:10;font-size:10px">'; $html .= ($aspetto_beni) ? $aspetto_beni:''; $html.='</label>
-    <label style="position: absolute;top: 300px;left: 85px;z-index:10;font-size:10px">'.$cliente->PartitaIva.'</label>
-    <label style="position: absolute;top: 60px;left: 450px;z-index:10;font-size:10px">'.$cliente->Descrizione.'</label>
-    <label style="position: absolute;top: 80px;left: 450px;z-index:10;font-size:10px">'.$cliente->Indirizzo.'</label>
-    <label style="position: absolute;top: 100px;left: 450px;z-index:10;font-size:10px">'.$cliente->Cap.' - '.$cliente->Localita .'</label>
-    <label style="position: absolute;top: 300px;left: 180px;z-index:10;font-size:10px">'.$cliente->CodiceFiscale.'</label>
-    <label style="position: absolute;top: 1090px;left: 550px;z-index:10;font-size:10px"> Data di Creazione : '.$creazione.'</label>
+    <img src="';$html.= URL::asset('img/RCF.jpg');$html .= '" alt="DDT" style="width:99%;z-index:1">
+   <label style="position: absolute;top: 260px;left: 40px;z-index:10;font-size:12px">Utente</label>
+    <label style="position: absolute;top: 298px;left: 35px;z-index:10;font-size:11px">'.$id_dotes->Cd_CF.'</label>
+    <label style="position: absolute;top: 840px;left: 36px;z-index:10;font-size:12px">'; $html .= ($trasporto) ? $trasporto:''; $html.='</label>
+    <label style="position: absolute;top: 870px;left: 36px;z-index:10;font-size:12px">'; $html .= ($spedizione) ? $spedizione:''; $html.='</label>
+    <label style="position: absolute;top: 870px;left: 160px;z-index:10;font-size:12px">'; $html .= ($porto) ? $porto:''; $html.='</label>
+    <label style="position: absolute;top: 870px;left: 300px;z-index:10;font-size:12px">'; $html .= ($data_trasporto) ? $data_trasporto:''; $html.='</label>
+    <label style="position: absolute;top: 840px;left: 180px;z-index:10;font-size:12px">'; $html .= ($aspetto_beni) ? $aspetto_beni:''; $html.='</label>
+    <label style="position: absolute;top: 298px;left: 85px;z-index:10;font-size:12px">'.$cliente->PartitaIva.'</label>
+    <label style="position: absolute;top: 60px;left: 450px;z-index:10;font-size:12px">'.$cliente->Descrizione.'</label>
+    <label style="position: absolute;top: 80px;left: 450px;z-index:10;font-size:12px">'.$cliente->Indirizzo.'</label>
+    <label style="position: absolute;top: 100px;left: 450px;z-index:10;font-size:12px">'.$cliente->Cap.' - '.$cliente->Localita .'</label>
+    <label style="position: absolute;top: 300px;left: 180px;z-index:10;font-size:12px">'.$cliente->CodiceFiscale.'</label>
+    <label style="position: absolute;top: 1090px;left: 550px;z-index:10;font-size:12px"> Data di Creazione : '.$creazione.'</label>
     <label style="position: absolute;top: 300px;left: 580px;z-index:10;font-size:12px;font-weight: bold">'.$id_dotes->NumeroDoc.'</label>
-    <label style="position: absolute;top: 300px;left: 300px;z-index:10;font-size:10px">'; $html .= ($contatto->Telefono) ? $contatto->Telefono:''; $html.='</label>
+    <label style="position: absolute;top: 300px;left: 300px;z-index:10;font-size:12px">'; $html .= ($contatto->Telefono) ? $contatto->Telefono:''; $html.='</label>
     <label style="position: absolute;top: 300px;left: 640px;z-index:10;font-size:12px;font-weight: bold">'.$date.'</label>
-    <label style="position: absolute;top: 335px;left: 35px;z-index:10;font-size:10px">'.$pagamento->Descrizione.'</label>
-    <label style="position: absolute;top: 317px;left: 296px;z-index:10;font-size:7px">BANCA D\'APPOGGIO</label>
-    <label style="position: absolute;top: 335px;left:300px;z-index:10;font-size:10px">'.$banca.'</label>
-    <label style="text-align: left;position: absolute;top: 990px;left: 620px;z-index:10;font-size:14px;font-weight: bold">EUR.</label>
-    <label style="text-align: right;position: absolute;top: 990px;left: 690px;z-index:10;font-size:14px;font-weight: bold">'.number_format($dototali->TotDocumentoV,2,',','.').'</label>
-    <label style="text-align: left;position: absolute;top: 990px;left: 430px;z-index:10;font-size:10px;">EUR.</label>
-    <label style="text-align: right;position: absolute;top: 990px;left: 480px;z-index:10;font-size:10px;">'.number_format($dototali->TotDocumentoV,2,',','.').'</label>
-    <div style="text-align:left;position: absolute;top: 370px;left: 35px;z-index:10;font-size:10px">';
+    <label style="position: absolute;top: 330px;left: 36px;z-index:10;font-size:12px">'.$pagamento->Descrizione.'</label>
+    <label style="position: absolute;top: 330px;left:300px;z-index:10;font-size:12px">'.$banca.'</label>
+    <label style="text-align: left;position: absolute;top: 980px;left: 620px;z-index:10;font-size:14px;font-weight: bold">EUR.</label>
+    <label style="text-align: right;position: absolute;top: 980px;left: 690px;z-index:10;font-size:14px;font-weight: bold">'.number_format($dototali->TotDocumentoV,2,',','.').'</label>
+    <label style="position: absolute;top: 335px;left: 300px;z-index:10;font-size:12px">'; $html.='</label>
+    <div style="text-align:left;position: absolute;top: 370px;left: 35px;z-index:10;font-size:12px">';
 foreach ($dorig as $d){
     $html.= '<label>'.$d->Cd_AR.'</label><br>';
 }
 $html .='
     </div>
-        <div style="text-align:left;position: absolute;top: 370px;left: 160px;z-index:10;font-size:10px">';
+        <div style="text-align:left;position: absolute;top: 370px;left: 160px;z-index:10;font-size:12px">';
 foreach ($dorig as $d){
     DB::SELECT('SELECT * FROM AR WHERE Cd_AR = \''.$d->Cd_AR.'\'')[0];
     $html.= '<label>'.$d->Descrizione.'</label><br>';
 }
 $html .='
     </div>
-        <div style="text-align:left;position: absolute;top: 370px;left: 465px;z-index:10;font-size:10px">';
+        <div style="text-align:left;position: absolute;top: 370px;left: 465px;z-index:10;font-size:12px">';
 foreach ($dorig as $d){
     $html.= '<label>'.$d->Cd_ARMisura.'</label><br>';
 }
 $html .='
     </div>
-        <div style="text-align:right;position: absolute;top: 370px;left: 515px;z-index:10;font-size:10px">';
+        <div style="text-align:right;position: absolute;top: 370px;left: 515px;z-index:10;font-size:12px">';
 foreach ($dorig as $d){
     $html.= '<label>'.number_format($d->Qta,2,',','.').'</label><br>';
 }
 $html .='
     </div>
-        <div style="text-align:right;position: absolute;top: 370px;left: 570px;z-index:10;font-size:10px">';
+        <div style="text-align:right;position: absolute;top: 370px;left: 570px;z-index:10;font-size:12px">';
 foreach ($dorig as $d){
     $html.= '<label>'.number_format($d->PrezzoUnitarioV,4,',','.').'</label><br>';
 }
 $html .='
     </div>
-        <div style="text-align:right;position: absolute;top: 370px;left: 625px;z-index:10;font-size:10px">';
+        <div style="text-align:right;position: absolute;top: 370px;left: 625px;z-index:10;font-size:12px">';
 foreach ($dorig as $d){
     if($d->ScontoRiga != '')
         $html.= '<label>'.$d->ScontoRiga.'</label><br>';
 }
 $html .='
     </div>
-        <div style="text-align:right;position: absolute;top: 370px;left: 690px;z-index:10;font-size:10px">';
+        <div style="text-align:right;position: absolute;top: 370px;left: 690px;z-index:10;font-size:12px">';
 foreach ($dorig as $d){
     $html.= '<label>'.number_format($d->PrezzoTotaleV,2,',','.').'</label><br>';
 }
 $html .='
     </div>
-        <div style="text-align:right;position: absolute;top: 370px;left: 740px;z-index:10;font-size:10px">';
+        <div style="text-align:right;position: absolute;top: 370px;left: 740px;z-index:10;font-size:12px">';
 foreach ($dorig as $d){/*
     if($d->Cd_Aliquota != '')
         $html.= '<label>'.$d->Cd_Aliquota.'</label><br>';*/
@@ -143,6 +141,6 @@ $html .='
 </script>
 </html>';
 echo $html;exit();
-//<label style="position: absolute;top: 335px;left: 300px;z-index:10;font-size:10px">'; $html .= ($id_dotes->Cd_CGConto_Banca) ? $id_dotes->Cd_CGConto_Banca:''; $html.='</label>
+//<label style="position: absolute;top: 335px;left: 300px;z-index:10;font-size:12px">'; $html .= ($id_dotes->Cd_CGConto_Banca) ? $id_dotes->Cd_CGConto_Banca:''; $html.='</label>
 
 ?>
