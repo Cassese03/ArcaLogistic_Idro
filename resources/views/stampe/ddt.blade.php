@@ -22,18 +22,25 @@ if(sizeof($spedizione) > 0)
 $aspetto_beni = DB::SELECT('SELECT * FROM DOAspBene where Cd_DOAspBene =\''.$id_dotes->Cd_DoAspBene.'\'');
 if(sizeof($aspetto_beni) > 0)
     $aspetto_beni = $aspetto_beni[0]->Descrizione;
-$banca = 'IT-62-C-C0200876312-000401045594 BANCA UNICREDIT';
+//$banca = 'IT-62-C-C0200876312-000401045594 BANCA UNICREDIT';
+$banca = DB::SELECT('SELECT * FROM Banca where Cd_CGConto = \''.$id_dotes->Cd_CGConto_Banca.'\' ');
+$banca = $banca[0]->Iban;
 $html = '<!DOCTYPE html>
 <html>
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <style>
+    <style type="text/css" media="print">
+    @page
+        {
+            size: auto;   /* auto is the initial value */
+            margin: 0mm;  /* this affects the margin in the printer settings */
+        }
         .container {
             position: relative;
             text-align: center;
         }
-        body{
-            margin: 0;
+       body{
+            margin: 0px;
             padding: 0;
             width: 21cm;
             height: 29.7cm;
@@ -64,10 +71,10 @@ $html = '<!DOCTYPE html>
     <label style="position: absolute;top: 300px;left: 300px;z-index:10;font-size:10px">'; $html .= ($contatto->Telefono) ? $contatto->Telefono:''; $html.='</label>
     <label style="position: absolute;top: 300px;left: 640px;z-index:10;font-size:12px;font-weight: bold">'.$date.'</label>
     <label style="position: absolute;top: 335px;left: 35px;z-index:10;font-size:10px">'.$pagamento->Descrizione.'</label>
-    <label style="position: absolute;top: 335px;left: 295px;z-index:10;font-size:10px">'.$banca.'</label>
+    <label style="position: absolute;top: 335px;left:300px;z-index:10;font-size:10px">'.$banca.'</label>
     <label style="text-align: left;position: absolute;top: 940px;left: 620px;z-index:10;font-size:14px;font-weight: bold">EUR.</label>
     <label style="text-align: right;position: absolute;top: 940px;left: 690px;z-index:10;font-size:14px;font-weight: bold">'.number_format($dototali->TotDocumentoV,2,',','.').'</label>
-    <label style="position: absolute;top: 335px;left: 300px;z-index:10;font-size:10px">'; $html .= ($id_dotes->Cd_CGConto_Banca) ? $id_dotes->Cd_CGConto_Banca:''; $html.='</label>
+    <label style="position: absolute;top: 335px;left: 300px;z-index:10;font-size:10px">'; $html.='</label>
     <div style="text-align:left;position: absolute;top: 370px;left: 35px;z-index:10;font-size:10px">';
 foreach ($dorig as $d){
     $html.= '<label>'.$d->Cd_AR.'</label><br>';

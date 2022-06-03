@@ -931,9 +931,9 @@ class AjaxController extends Controller{
 
     public function crea_documento($cd_cf,$cd_do,$numero,$data){
 
-        $listino = DB::SELECT('SELECT * FROM CF WHERE Cd_CF = \''.$cd_cf.'\' ');
+        $fornitore = DB::SELECT('SELECT * FROM CF WHERE Cd_CF = \''.$cd_cf.'\' ');
         if(sizeof($listino)> 0)
-            $listino = $listino[0]->Cd_LS_1;
+            $listino = $fornitore[0]->Cd_LS_1;
         else
             $listino = 'BANCO';
         $insert_testata_ordine['Cd_LS_1'] = $listino;
@@ -952,6 +952,8 @@ class AjaxController extends Controller{
             $ora = date('d/m/Y h:i:s', strtotime('now'));
             $insert_testata_ordine['TrasportoDataOra'] = $ora;
         }
+        $insert_testata_ordine['Cd_CGConto_Banca'] = ($fornitore[0]->Cd_CGConto_Banca)? $fornitore[0]->Cd_CGConto_Banca:'';
+
         $data = str_replace('-','',$data);
         $insert_testata_ordine['DataDoc'] = $data;
         $Id_DoTes = DB::table('DOTes')->insertGetId($insert_testata_ordine);
@@ -970,10 +972,10 @@ class AjaxController extends Controller{
         if (sizeof($fornitore) > 0)
             if ($fornitore[0]->Cd_PG != null)
                 $insert_testata_ordine['Cd_PG'] = $fornitore[0]->Cd_PG;
-        $insert_testata_ordine['Cd_CGConto_banca'] = '03040101002';
         $insert_testata_ordine['Cd_LS_1'] = $listino;
         $insert_testata_ordine['Cd_CF'] = $cd_cf;
         $insert_testata_ordine['Cd_Do'] = $cd_do;
+        $insert_testata_ordine['Cd_CGConto_Banca'] = ($fornitore[0]->Cd_CGConto_Banca)? $fornitore[0]->Cd_CGConto_Banca:'';
         $insert_testata_ordine['NumeroDoc'] = $numero;
         if ($cd_do == 'DDT')
             $insert_testata_ordine['Modificabile'] = 0;
