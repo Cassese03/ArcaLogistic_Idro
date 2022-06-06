@@ -85,26 +85,26 @@ foreach ($dorig as $d){
 }
 $html .='
     </div>
-        <div style="text-align:left;position: absolute;top: 370px;left: 160px;z-index:10;font-size:12px">';
+        <div style="text-align:left;position: absolute;top: 370px;left: 150px;z-index:10;font-size:12px">';
 foreach ($dorig as $d){
     DB::SELECT('SELECT * FROM AR WHERE Cd_AR = \''.$d->Cd_AR.'\'')[0];
     $html.= '<label>'.$d->Descrizione.'</label><br>';
 }
 $html .='
     </div>
-        <div style="text-align:left;position: absolute;top: 370px;left: 465px;z-index:10;font-size:12px">';
+        <div style="text-align:left;position: absolute;top: 370px;left: 460px;z-index:10;font-size:12px">';
 foreach ($dorig as $d){
     $html.= '<label>'.$d->Cd_ARMisura.'</label><br>';
 }
 $html .='
     </div>
-        <div style="text-align:right;position: absolute;top: 370px;left: 515px;z-index:10;font-size:12px">';
+        <div style="text-align:right;position: absolute;top: 370px;left: 505px;z-index:10;font-size:12px">';
 foreach ($dorig as $d){
     $html.= '<label>'.number_format($d->Qta,2,',','.').'</label><br>';
 }
 $html .='
     </div>
-        <div style="text-align:right;position: absolute;top: 370px;left: 580px;z-index:10;font-size:12px">';
+        <div style="text-align:right;position: absolute;top: 370px;left: 570px;z-index:10;font-size:12px">';
 foreach ($dorig as $d){
     $html.= '<label>'.number_format($d->PrezzoUnitarioV,4,',','.').'</label><br>';
 }
