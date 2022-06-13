@@ -949,10 +949,11 @@ class AjaxController extends Controller{
             $insert_testata_ordine['Cd_DoTrasporto'] = '001';
             $insert_testata_ordine['Cd_DoAspBene'] = 'AV';
             date_default_timezone_set('Europe/Rome');
-            $ora = date('Y-m-d', strtotime('now'));
+            $ora = date('d-m-Y', strtotime('now'));
             $insert_testata_ordine['TrasportoDataOra'] = $ora;
         }
-        $insert_testata_ordine['Cd_CGConto_Banca'] = ($fornitore[0]->Cd_CGConto_Banca)? $fornitore[0]->Cd_CGConto_Banca:'';
+        if($fornitore[0]->Cd_CGConto_Banca)
+            $insert_testata_ordine['Cd_CGConto_Banca'] = $fornitore[0]->Cd_CGConto_Banca;
         $data = str_replace('-','',$data);
         $insert_testata_ordine['DataDoc'] = $data;
         $Id_DoTes = DB::table('DOTes')->insertGetId($insert_testata_ordine);
@@ -974,8 +975,8 @@ class AjaxController extends Controller{
         $insert_testata_ordine['Cd_LS_1'] = $listino;
         $insert_testata_ordine['Cd_CF'] = $cd_cf;
         $insert_testata_ordine['Cd_Do'] = $cd_do;
-        $insert_testata_ordine['Cd_CGConto_Banca'] = ($fornitore[0]->Cd_CGConto_Banca)? $fornitore[0]->Cd_CGConto_Banca:'';
-        $insert_testata_ordine['NumeroDoc'] = $numero;
+        if($fornitore[0]->Cd_CGConto_Banca)
+            $insert_testata_ordine['Cd_CGConto_Banca'] = $fornitore[0]->Cd_CGConto_Banca;        $insert_testata_ordine['NumeroDoc'] = $numero;
         /*if ($cd_do == 'DDT')
             $insert_testata_ordine['Modificabile'] = 0;*/
         $data = str_replace('-', '', $data);
@@ -993,7 +994,7 @@ class AjaxController extends Controller{
             $insert_testata_ordine['Cd_DoTrasporto'] = '001';
             $insert_testata_ordine['Cd_DoAspBene'] = 'AV';
             date_default_timezone_set('Europe/Rome');
-            $ora = date('Y-m-d', strtotime('now'));
+            $ora = date('d-m-Y', strtotime('now'));
             $ora = str_replace('-', '', $ora);
             $insert_testata_ordine['TrasportoDataOra'] = $ora;
         }
