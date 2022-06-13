@@ -106,7 +106,7 @@ $html .='
     </div>
         <div style="text-align:right;position: absolute;top: 370px;left: 570px;z-index:10;font-size:12px">';
 foreach ($dorig as $d){
-    $html.= '<label>'.number_format($d->PrezzoUnitarioV,4,',','.').'</label><br>';
+    $html.= '<label>'.number_format(floatval($d->PrezzoUnitarioV)+floatval((($d->PrezzoUnitarioV/100)*22)),4,',','.').'</label><br>';
 }
 $html .='
     </div>
@@ -119,7 +119,7 @@ $html .='
     </div>
         <div style="text-align:right;position: absolute;top: 370px;left: 690px;z-index:10;font-size:12px">';
 foreach ($dorig as $d){
-    $html.= '<label>'.number_format($d->PrezzoTotaleV,2,',','.').'</label><br>';
+    $html.= '<label>'.number_format(floatval($d->PrezzoTotaleV)+floatval((($d->PrezzoTotaleV/100)*22)),2,',','.').'</label><br>';
 }
 $html .='
     </div>

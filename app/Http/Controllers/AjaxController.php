@@ -176,7 +176,7 @@ class AjaxController extends Controller{
         public function inserisci_lotto($lotto,$articolo,$fornitore,$descrizione,$fornitore_pallet,$pallet){
             $esiste = DB::SELECT('SELECT * FROM ARLotto WHERE Cd_AR = \''.$articolo.'\' and Cd_ARLotto = \''.$lotto.'\' ');
             if(sizeof($esiste)>0){
-                echo 'Impossibile creare il lotto in quanto già esistente';
+                echo 'Impossibile creare il lotto in quanto gi?? esistente';
             }else {
                 if($fornitore!='0') {
                     $fornitori = DB::select('SELECT [Id_CF],[Cd_CF],[Descrizione] FROM CF where Fornitore = 1 and (Cd_CF Like \'%' . $fornitore . '%\' or  Descrizione Like \'%' . $fornitore . '%\')  Order By Id_CF DESC');
@@ -505,7 +505,7 @@ class AjaxController extends Controller{
 
         //TODO Controllare Data Scadenza togliere i commenti
 
-        $date = date('d/m/Y',strtotime('today')) ;
+        $date = date('Y/m/d',strtotime('today')) ;
 
         IF($Cd_ARLotto!='0')
             $lotto = DB::select('SELECT * FROM ARLotto WHERE Cd_AR = \'' . $codice . '\' and Cd_ARLotto !=\''.$Cd_ARLotto.'\' AND DataScadenza > \''.$date.'\' and Cd_ARLotto in (select Cd_ARLotto from MGMov group by Cd_ARLotto having SUM(QuantitaSign) >= 0)  ');
@@ -847,7 +847,7 @@ class AjaxController extends Controller{
  */
     public function evadi_articolo2($Id_DoRig){
         $Id_DoTes = '';
-        $date = date('d/m/Y',strtotime('today')) ;
+        $date = date('Y/m/d',strtotime('today')) ;
         $controllo = DB::SELECT('SELECT * FROM DORIG WHERE Id_DORig in (\''.$Id_DoRig.'\')')[0]->Id_DOTes;
         $controlli = DB::SELECT('SELECT * FROM DORIG WHERE Id_DOTes = \''.$controllo.'\'');
         foreach($controlli as $c){
@@ -940,8 +940,8 @@ class AjaxController extends Controller{
         $insert_testata_ordine['Cd_CF'] = $cd_cf;
         $insert_testata_ordine['Cd_Do'] = $cd_do;
         $insert_testata_ordine['NumeroDoc'] = $numero;
-        if($cd_do == 'DDT')
-            $insert_testata_ordine['Modificabile'] = 0 ;
+        /*if($cd_do == 'DDT')
+            $insert_testata_ordine['Modificabile'] = 0 ;*/
         if ($cd_do == 'DDT')
         {
             $insert_testata_ordine['Cd_DoSped'] = '02';
@@ -949,7 +949,7 @@ class AjaxController extends Controller{
             $insert_testata_ordine['Cd_DoTrasporto'] = '001';
             $insert_testata_ordine['Cd_DoAspBene'] = 'AV';
             date_default_timezone_set('Europe/Rome');
-            $ora = date('d/m/Y h:i:s', strtotime('now'));
+            $ora = date('Y-m-d', strtotime('now'));
             $insert_testata_ordine['TrasportoDataOra'] = $ora;
         }
         $insert_testata_ordine['Cd_CGConto_Banca'] = ($fornitore[0]->Cd_CGConto_Banca)? $fornitore[0]->Cd_CGConto_Banca:'';
@@ -976,8 +976,8 @@ class AjaxController extends Controller{
         $insert_testata_ordine['Cd_Do'] = $cd_do;
         $insert_testata_ordine['Cd_CGConto_Banca'] = ($fornitore[0]->Cd_CGConto_Banca)? $fornitore[0]->Cd_CGConto_Banca:'';
         $insert_testata_ordine['NumeroDoc'] = $numero;
-        if ($cd_do == 'DDT')
-            $insert_testata_ordine['Modificabile'] = 0;
+        /*if ($cd_do == 'DDT')
+            $insert_testata_ordine['Modificabile'] = 0;*/
         $data = str_replace('-', '', $data);
         $insert_testata_ordine['DataDoc'] = $data;
         if ($numero_rif != '0') {
@@ -993,7 +993,8 @@ class AjaxController extends Controller{
             $insert_testata_ordine['Cd_DoTrasporto'] = '001';
             $insert_testata_ordine['Cd_DoAspBene'] = 'AV';
             date_default_timezone_set('Europe/Rome');
-            $ora = date('d/m/Y h:i:s', strtotime('now'));
+            $ora = date('Y-m-d', strtotime('now'));
+            $ora = str_replace('-', '', $ora);
             $insert_testata_ordine['TrasportoDataOra'] = $ora;
         }
         $Id_DoTes = DB::table('DOTes')->insertGetId($insert_testata_ordine);
@@ -1078,6 +1079,47 @@ class AjaxController extends Controller{
             ?>
             '<?php echo $cd_cf ?>','<?php echo $articolo->Cd_AR ?>','<?php if($articolo->Cd_ARLotto != '')echo $articolo->Cd_ARLotto;else echo '0'; ?>','<?php if($qta != '')echo $qta;else echo '0'; ?>'
             <?php
+        }
+    }
+
+    public function cerca_articolo_smart1($q,$cd_cf){
+        $q =  str_replace("slash","/",$q);
+        $qta='ND';/*
+            $decoder = new Decoder($delimiter = '');
+            $barcode = $decoder->decode($q);
+            $where = ' where 1=1 ';
+            foreach ($barcode->toArray()['identifiers'] as $field) {
+
+                if ($field['code'] == '01') {
+                    $testo = trim($field['content'], '*,');
+                    $where .= ' and AR.Cd_AR Like \'%' . $testo . '%\'';
+                }
+                if ($field['code'] == '310') {
+                    $decimali = floatval(substr($field['raw_content'],-2));
+                    $qta = floatval(substr($field['raw_content'],0,4))+$decimali/100;
+                }
+                if ($field['code'] == '10') {
+                    $where .= ' and ARLotto.Cd_ARLotto Like \'%' . $field['content'] . '%\'';
+                }
+
+            }
+            $articoli = DB::select('SELECT AR.[Id_AR],AR.[Cd_AR],AR.[Descrizione],ARLotto.[Cd_ARLotto] FROM AR LEFT JOIN ARLotto on AR.Cd_AR = ARLotto.Cd_AR ' . $where . '  Order By Id_AR DESC');
+*/
+
+        $articoli = DB::select('SELECT AR.[Id_AR],AR.[Cd_AR],AR.[Descrizione],ARLotto.[Cd_ARLotto] FROM AR LEFT JOIN ARLotto ON AR.Cd_AR = ARLotto.Cd_ARLotto LEFT JOIN ARAlias ON ARAlias.Cd_AR = AR.Cd_AR where AR.Cd_AR Like \''.$q.'%\' or  AR.Descrizione Like \'%'.$q.'%\' or AR.CD_AR IN (SELECT CD_AR from ARAlias where Alias LIKE \'%'.$q.'%\') Order By AR.Id_AR DESC');
+        if(sizeof($articoli) > 0){
+            foreach($articoli as $articolo){ ?>
+
+                <li class="list-group-item">
+                    <a href="#" onclick="" class="media">
+                        <div class="media-body" onclick="cerca_articolo_codice('<?php echo $cd_cf ?>','<?php echo $articolo->Cd_AR ?>','<?php if($articolo->Cd_ARLotto != '')echo $articolo->Cd_ARLotto;else echo '0'; ?>','<?php if($qta != '')echo $qta;else echo '0'; ?>')">
+                            <h5><?php echo $articolo->Descrizione;?></h5>
+                            <p>Codice: <?php echo $articolo->Cd_AR ?></p>
+                        </div>
+                    </a>
+                </li>
+
+            <?php }
         }
     }
 
@@ -1176,7 +1218,7 @@ class AjaxController extends Controller{
                 $prova = DB::SELECT('SELECT ISNULL(sum(QuantitaSign),0) as disponibilita,Cd_ARLotto,Cd_MG from MGMOV where Cd_MGEsercizio = '.date('Y').' and Cd_AR = \'' . $articolo->Cd_AR . '\' and Cd_ARLotto IS NOT NULL group by Cd_ARLotto, Cd_MG HAVING SUM(QuantitaSign)!= 0  ');
             }
 
-            /*  echo '<h3>Disponibilità: ' . $quantita . '</h3>';*/
+            /*  echo '<h3>Disponibilit??: ' . $quantita . '</h3>';*/
             ?>
             <script type="text/javascript">
                 $('#modal_Cd_AR').val('<?php echo $articolo->Cd_AR ?>');
@@ -1200,7 +1242,7 @@ class AjaxController extends Controller{
 
             $id_MGMovInt =  DB::table('MGMovInt')->insertGetId(array('Tipo' => 0,'DataMov' =>date('Ymd'),'Descrizione' => 'Movimenti Rettifica'));
             DB::insert('INSERT INTO MGMoV(DataMov,PartenzaArrivo,PadreComponente,Cd_MGEsercizio,Cd_AR,Cd_MG,Quantita,Ret,Id_MgMovInt,Cd_ARLotto) VALUES (\''.date('Ymd').'\',\'A\',\'P\','.date('Y').',\''.$codice.'\',\''.$magazzino.'\','.$quantita.',1,'.$id_MGMovInt.',\''.$lotto .'\' )');
-            echo 'Quantità Rettificata con Successo';
+            echo 'Quantit?? Rettificata con Successo';
 
             DB::commit();
         } catch (\PDOException $e) {
@@ -1281,7 +1323,7 @@ class AjaxController extends Controller{
                 $prova = DB::SELECT('SELECT ISNULL(sum(QuantitaSign),0) as disponibilita,Cd_ARLotto,Cd_MG from MGMOV where Cd_MGEsercizio = '.date('Y').' and Cd_AR = \'' . $articolo->Cd_AR . '\' and Cd_ARLotto IS NOT NULL group by Cd_ARLotto, Cd_MG HAVING SUM(QuantitaSign)!= 0  ');
             }
 
-            /* echo '<h3>Disponibilità: ' . $quantita . '</h3>';*/
+            /* echo '<h3>Disponibilit??: ' . $quantita . '</h3>';*/
             ?>
             <script type="text/javascript">
                 $('#modal_Cd_AR').val('<?php echo $articolo->Cd_AR ?>');
@@ -1303,7 +1345,7 @@ class AjaxController extends Controller{
         echo 'Eliminato';
     }
     public function salva($id_dotes){
-        DB::update("Update dotes set Modificabile = 0 where id_dotes = $id_dotes ");
+        //DB::update("Update dotes set Modificabile = 0 where id_dotes = $id_dotes ");
     }
     public function invia_mail($id_dotes,$id_dorig,$testo){
         if($id_dorig=='1') {

@@ -406,25 +406,25 @@
 
     <div class="modal" id="modal_cerca_articolo" tabindex="-1" role="dialog" aria-hidden="true">
         <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">Carica Articolo</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close" onclick="$('#modal_cerca_articolo').modal('hide');$('#cerca_articolo2').val('');$('#cerca_articolo2').focus()">
-                            <span aria-hidden="true">×</span>
-                        </button>
-                    </div>
-
-                    <div class="modal-body">
-
-                        <label>Cerca Articolo</label>
-                        <input class="form-control" type="text" id="cerca_articolo" value=""  placeholder="Inserisci barcode,codice o nome dell'articolo" autocomplete="off" autofocus>
-                    </div>
-
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal" onclick="$('#modal_cerca_articolo').modal('hide');$('#cerca_articolo2').val('');$('#cerca_articolo2').focus()">Chiudi</button>
-                        <button type="button" class="btn btn-primary" onclick="cerca_articolo_smart();check();">Cerca Articolo</button>
-                    </div>
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Carica Articolo</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close" onclick="$('#modal_cerca_articolo').modal('hide');$('#cerca_articolo2').val('');$('#cerca_articolo2').focus()">
+                        <span aria-hidden="true">×</span>
+                    </button>
                 </div>
+
+                <div class="modal-body">
+
+                    <label>Cerca Articolo</label>
+                    <input class="form-control" type="text" id="cerca_articolo" value=""  placeholder="Inserisci barcode,codice o nome dell'articolo" autocomplete="off" autofocus>
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal" onclick="$('#modal_cerca_articolo').modal('hide');$('#cerca_articolo2').val('');$('#cerca_articolo2').focus()">Chiudi</button>
+                    <button type="button" class="btn btn-primary" onclick="cerca_articolo_smart1();check();">Cerca Articolo</button>
+                </div>
+            </div>
         </div>
     </div>
 
@@ -477,25 +477,25 @@
     <?php } ?>
     <div class="modal" id="modal_carico" tabindex="-1" role="dialog" aria-hidden="true">
         <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">Carica Articolo</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close" onclick="$('#modal_carico').modal('hide');$('#cerca_articolo2').val('');$('#cerca_articolo2').focus()">
-                            <span aria-hidden="true">×</span>
-                        </button>
-                    </div>
-                    <div class="modal-body">
-                        <div id="ajax_modal_carico"></div>
-                        <label>Quantita</label>
-                        <input class="form-control" type="number" id="modal_quantita" value="" required placeholder="Inserisci una Quantità" autocomplete="off" >
-                        <input class="form-control" type="hidden" id="modal_Cd_AR" value="" required autocomplete="off" >
-                    </div>
-
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal" onclick="$('#modal_carico').modal('hide');$('#cerca_articolo2').val('');$('#cerca_articolo2').focus()">Chiudi</button>
-                        <button type="button" class="btn btn-primary" onclick="carica_articolo();">Carica Articolo</button>
-                    </div>
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Carica Articolo</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close" onclick="$('#modal_carico').modal('hide');$('#cerca_articolo2').val('');$('#cerca_articolo2').focus()">
+                        <span aria-hidden="true">×</span>
+                    </button>
                 </div>
+                <div class="modal-body">
+                    <div id="ajax_modal_carico"></div>
+                    <label>Quantita</label>
+                    <input class="form-control" type="number" id="modal_quantita" value="" required placeholder="Inserisci una Quantità" autocomplete="off" >
+                    <input class="form-control" type="hidden" id="modal_Cd_AR" value="" required autocomplete="off" >
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal" onclick="$('#modal_carico').modal('hide');$('#cerca_articolo2').val('');$('#cerca_articolo2').focus()">Chiudi</button>
+                    <button type="button" class="btn btn-primary" onclick="carica_articolo();">Carica Articolo</button>
+                </div>
+            </div>
         </div>
     </div>
 
@@ -620,7 +620,7 @@
                     <input type="hidden" name="modal_Cd_AR_c_<?php echo $r->Id_DORig?>" id="modal_Cd_AR_c_<?php echo $r->Id_DORig?>">
                     <input type="hidden" name="modal_Qta_c_<?php echo $r->Id_DORig?>" id="modal_Qta_c_<?php echo $r->Id_DORig?>">
                     <input type="hidden" name="modal_Prezzo_c_<?php echo $r->Id_DORig?>" id="modal_Prezzo_c_<?php echo $r->Id_DORig?>">
-                <?php } ?>
+                    <?php } ?>
 
 
                     <div class="modal-footer">
@@ -653,7 +653,7 @@
                         <button type="button" class="btn btn-primary" onclick="salva_doc()">Si</button>
                         <?php }else{?>
                         <button type="button" class="btn btn-primary" onclick="top.location.href='/'">Si</button>
-                    <?php }?>
+                        <?php }?>
                     </div>
                 </div>
             </form>
@@ -795,7 +795,7 @@
         }).done(function (result) {
             if(result =='Eliminato')
                 alert('Documento Eliminato Correttamente');
-                top.location.href='/';
+            top.location.href='/';
         });
     }
 
@@ -803,7 +803,7 @@
     function invia(){
         testo = 'Il documento (documento) è stato salvato.<br> Le righe del documento sono:';
         <?php foreach($documento->righe as $r){ ?>
-        articolo = '<?php echo $r->Cd_AR?>';
+            articolo = '<?php echo $r->Cd_AR?>';
         quantita = '<?php echo $r->Qta?>';
         prezzo   = '<?php echo $r->PrezzoUnitarioV?>';
         testo = testo +'<br> Articolo '+ articolo +' quantita\' '+ Number.parseFloat(quantita).toFixed(2) +' prezzo '+ prezzo + '<br>';
@@ -956,9 +956,37 @@
 
     }
 
+    function cerca_articolo_smart1(){
+        testo = $('#cerca_articolo').val();
+        if(testo=='')
+            testo = $('#cerca_articolo2').val(); testo  = testo.trimEnd();
+
+        pos = testo.search('/');
+        if(pos !=(-1)){ testo = testo.substr(0,pos)+'slash'+testo.substr(pos+1)}
+        if(testo != '') {
+
+            $.ajax({
+                url: "<?php echo URL::asset('ajax/cerca_articolo_smart1') ?>/" + encodeURIComponent(testo)+"/"+cd_cf,
+                context: document.body
+            }).done(function (result) {
+                if(result != '') {
+
+                    pos = result.search('/');
+                    if(pos !=(-1)){ result = result.substr(0,pos)+'slash'+result.substr(pos+1)}
+                    $('#modal_cerca_articolo').modal('hide');
+                    $('#modal_lista_articoli').modal('show');
+                    $('#ajax_lista_articoli').html(result);
+                } else
+                    $('#modal_alertTrovare').modal('show');
+            });
+
+        }
+
+    }
+
     function cerca_articolo_codice(fornitore,codice,lotto,qta){
 
-        if(fornitore.length > 6) {
+        if(fornitore.length > 7) {
             const myArray = fornitore.split("','");
             codice = myArray[1];
             lotto = myArray[2];
