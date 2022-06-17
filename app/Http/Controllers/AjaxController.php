@@ -949,7 +949,7 @@ class AjaxController extends Controller{
             $insert_testata_ordine['Cd_DoTrasporto'] = '001';
             $insert_testata_ordine['Cd_DoAspBene'] = 'AV';
             date_default_timezone_set('Europe/Rome');
-            $ora = date('d-m-Y', strtotime('now'));
+            $ora = date('Y-m-d', strtotime('now'));
             $insert_testata_ordine['TrasportoDataOra'] = $ora;
         }
         if($fornitore[0]->Cd_CGConto_Banca)
@@ -994,7 +994,7 @@ class AjaxController extends Controller{
             $insert_testata_ordine['Cd_DoTrasporto'] = '001';
             $insert_testata_ordine['Cd_DoAspBene'] = 'AV';
             date_default_timezone_set('Europe/Rome');
-            $ora = date('d-m-Y', strtotime('now'));
+            $ora = date('Y-m-d', strtotime('now'));
             $ora = str_replace('-', '', $ora);
             $insert_testata_ordine['TrasportoDataOra'] = $ora;
         }
