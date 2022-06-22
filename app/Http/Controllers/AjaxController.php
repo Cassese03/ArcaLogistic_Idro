@@ -29,6 +29,8 @@ class AjaxController extends Controller{
 
     public function stampe($id_dotes)
     {
+        DB::update("Update dotes set dotes.reserved_1= 'RRRRRRRRRR' where dotes.id_dotes = $id_dotes exec asp_DO_End $id_dotes");
+        DB::statement("exec asp_DO_End $id_dotes");
         $id_dotes = DB::SELECT('SELECT * FROM DOTes WHERE Id_DOTes = \''.$id_dotes.'\'')[0];
         if($id_dotes->Cd_Do =='DDT')
         {
@@ -1391,26 +1393,7 @@ class AjaxController extends Controller{
             $documento = DB::SELECT('Select * from dotes where Id_DOTes = \''.$id_dotes.'\'')[0]->Cd_Do;
             $testo = str_replace('(documento)',$documento,$testo);
             $where = $testo;
-        }/*
-        $mail = new PHPMailer(true);
-        $mail->isSMTP();
-        $mail->Host = 'smtps.aruba.it';
-        $mail->SMTPAuth = true;
-        $mail->Username = 'acquisti@gruppogambardella.it';
-        $mail->Password = '13nello';
-        $mail->SMTPSecure = 'ssl';
-        $mail->CharSet = 'utf-8';
-        $mail->Port = '465';
-        $mail->setFrom('acquisti@gruppogambardella.it');
-        $mail->addAddress('info@gruppogambardella.it');
-        $mail->addBCC('casseselorenzo03@gmail.com');
-        $mail->isHTML(true);
-
-        $mail->Subject = 'Arca Logistic - Gambardella ' . $id_dotes;
-
-        $mail->Body = $where . '<br>';
-
-        $mail->send();*/
+        }
 
     }
 
