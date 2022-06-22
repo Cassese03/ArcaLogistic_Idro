@@ -61,7 +61,7 @@ $html = '<!DOCTYPE html>
 <body>
 
 <div class="container">
-    <img src="';$html.= URL::asset('img/DDT.jpg');$html .= '" alt="DDT" style="width:99%;z-index:1">
+    <img src="';$html.= URL::asset('img/DDT.jpg');$html .= '" alt="DDT" style="width:99%;z-index:1;filter: grayscale(99%);">
     <label style="position: absolute;top: 260px;left: 40px;z-index:10;font-size:12px">Utente</label>
     <label style="position: absolute;top: 298px;left: 35px;z-index:10;font-size:11px">'.$id_dotes->Cd_CF.'</label>
     <label style="position: absolute;top: 840px;left: 36px;z-index:10;font-size:12px">'; $html .= ($trasporto) ? $trasporto:''; $html.='</label>
