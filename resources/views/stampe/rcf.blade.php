@@ -87,8 +87,7 @@ $html .='
     </div>
         <div style="text-align:left;position: absolute;top: 370px;left: 160px;z-index:10;font-size:12px">';
 foreach ($dorig as $d){
-    DB::SELECT('SELECT * FROM AR WHERE Cd_AR = \''.$d->Cd_AR.'\'')[0];
-    $html.= '<label>'.$d->Descrizione.'</label><br>';
+    $html.= '<label>'.substr($d->Descrizione,0,53).'</label><br>';
 }
 $html .='
     </div>

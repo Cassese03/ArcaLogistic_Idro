@@ -731,7 +731,7 @@ class HomeController extends Controller{
             $fornitore = $fornitori[0];
             $date = date('d/m/Y',strtotime('today')) ;
             foreach($documenti as $documento)
-                $documento->righe = DB::select('SELECT * from DORig where Id_DoTes in ('.$id_dotes.') and Qta > \'0\' ORDER BY QtaEvadibile DESC');
+                $documento->righe = DB::select('SELECT * from DORig where Id_DoTes in ('.$id_dotes.') and Qta > \'0\' ORDER BY TimeIns DESC');
 
             foreach ($documento->righe as $r)
             {
@@ -792,7 +792,7 @@ class HomeController extends Controller{
             $fornitore = $fornitori[0];
             $date = date('d/m/Y',strtotime('today')) ;
             foreach($documenti as $documento)
-                $documento->righe = DB::select('SELECT * from DORig where Id_DoTes in ('.$id_dotes.') and Qta > \'0\'  ORDER BY QtaEvadibile DESC');
+                $documento->righe = DB::select('SELECT * from DORig where Id_DoTes in ('.$id_dotes.') and Qta > \'0\'  ORDER BY TimeIns DESC');
 
             foreach ($documento->righe as $r)
             {
