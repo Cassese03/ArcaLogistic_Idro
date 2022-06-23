@@ -275,13 +275,13 @@ class HomeController extends Controller{
         if(!session()->has('utente')) {
             return Redirect::to('login');
         }
-        $documenti = DB::select('SELECT * FROM DO WHERE Cd_Do in (\'DCF\') and CliFor = \'F\'');
+        $documenti = DB::select('SELECT * FROM DO WHERE Cd_Do in (\'DCF\',\'OAF\') and CliFor = \'F\'');
         return View::make('passivi',compact('documenti'));
     }
 
     public function attivo(){
 
-        $documenti = DB::select('SELECT * FROM DO WHERE Cd_DO in (\'DDT\',\'LPL\',\'RCF\') and CliFor = \'C\'');
+        $documenti = DB::select('SELECT * FROM DO WHERE Cd_DO in (\'DDT\',\'LPL\',\'RCF\',\'PRV\') and CliFor = \'C\'');
         return View::make('attivo',compact('documenti'));
     }
     /*

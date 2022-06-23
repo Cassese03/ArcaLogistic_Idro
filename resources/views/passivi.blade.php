@@ -54,7 +54,7 @@
                     <?php  foreach($documenti as $d){ ?>
 
                     <li class="list-group-item">
-                        <a <?php echo 'href="/magazzino/carico02/'.$d->Cd_Do.'"';?>class="media">
+                        <a <?php /*if($d->Cd_Do == 'OAF')echo 'href="/magazzino/carico2/'.$d->Cd_Do.'"';else */echo 'href="/magazzino/carico02/'.$d->Cd_Do.'"';?>class="media">
                         <div class="media-body">
                                 <h5><?php echo $d->Cd_Do ?></h5>
                                 <p> <?php echo $d->Descrizione ?></p>
