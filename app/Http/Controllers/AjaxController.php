@@ -963,7 +963,7 @@ class AjaxController extends Controller{
     }
 
 
-    public function crea_documento_rif($cd_cf,$cd_do,$numero,$data,$numero_rif,$data_rif)
+    public function crea_documento_rif($cd_cf,$cd_do,$numero,$data,$numero_rif,$data_rif,$dest)
     {
 
         $fornitore = DB::SELECT('SELECT * FROM CF WHERE Cd_CF = \'' . $cd_cf . '\' ');
@@ -999,6 +999,8 @@ class AjaxController extends Controller{
             $ora = date('Y-m-d', strtotime('now'));
             $ora = str_replace('-', '', $ora);
             $insert_testata_ordine['TrasportoDataOra'] = $ora;
+            if($dest != 0)
+                $insert_testata_ordine['Cd_CFDest'] = $dest;
         }
         $Id_DoTes = DB::table('DOTes')->insertGetId($insert_testata_ordine);
         echo $Id_DoTes;

@@ -1,3 +1,4 @@
+<?php $destinazioni = DB::SELECT('SELECT * FROM CFDest WHERE Cd_CF = \''.$fornitore->Cd_CF.'\' '); ?>
 <!doctype html>
 <html lang="en" class="md">
 
@@ -111,7 +112,15 @@
 
                     <label>Data Documento Rif</label>
                     <input class="form-control" type="date" placeholder="Data Del Documento" id="DataDocRif" value="" autocomplete="off">
-
+                    <?php if( $cd_do == 'DDT') {?>
+                    <label>Destinazione</label>
+                    <input class="form-control" list="destinazione" type="text" placeholder="Destinazione del documento" id="Dest" value="" autocomplete="off">
+                    <datalist id="destinazione">
+                        <?php foreach($destinazioni as $d){?>
+                        <option value="<?php echo $d->Cd_CFDest?>"><?php echo $d->Cd_CFDest.' - '.$d->Descrizione.' - '.$d->Indirizzo ?></option>
+                        <?php } ?>
+                    </datalist>
+                    <?php } ?>
                 </div>
 
                 <div class="modal-footer">
@@ -239,7 +248,9 @@
         data = $('#DataDoc').val();
         numero_rif = $('#NumeroDocRif').val();
         data_rif = $('#DataDocRif').val();
-
+        destinazione = $('#Dest').val();
+        if(destinazione == '')
+            destinazione = 0;
         if (numero_rif == '')
             numero_rif = '0';
         if (data_rif == '')
@@ -248,7 +259,7 @@
         if(numero != '' && data != ''){
 
             $.ajax({
-                url: "<?php echo URL::asset('ajax/crea_documento_rif') ?>/<?php echo $fornitore->Cd_CF ?>/<?php echo $cd_do ?>/"+numero+"/"+data+"/"+numero_rif+"/"+data_rif
+                url: "<?php echo URL::asset('ajax/crea_documento_rif') ?>/<?php echo $fornitore->Cd_CF ?>/<?php echo $cd_do ?>/"+numero+"/"+data+"/"+numero_rif+"/"+data_rif+"/"+destinazione
             }).done(function(result) {
                 $('#modal_alertDocumento').modal('show');
                 top.location.href = "/magazzino/carico04/<?php echo $fornitore->Id_CF ?>/"+result;
