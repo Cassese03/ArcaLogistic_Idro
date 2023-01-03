@@ -129,7 +129,7 @@ class AjaxController extends Controller{
     }
     public function visualizza_lotti($articolo){
 
-        $giacenza = DB::SELECT('SELECT SUM(QuantitaSign) as Giacenza  FROM MGMov where Cd_AR =\''.$articolo.'\' and  Cd_MGEsercizio = SELECT YEAR(GETDATE()) and Cd_MG = \'00001\' ');
+        $giacenza = DB::SELECT('SELECT SUM(QuantitaSign) as Giacenza  FROM MGMov where Cd_AR =\''.$articolo.'\' and  Cd_MGEsercizio = YEAR(GETDATE()) and Cd_MG = \'00001\' ');
         foreach ($giacenza as $l){?>
             <li class="list-group-item" >
                 <a class="media" onclick="">
@@ -145,7 +145,7 @@ class AjaxController extends Controller{
     }
     /*
         public function storialotto($articolo,$lotto){
-            $lotto1 = DB::SELECT('SELECT * FROM MGMov WHERE Cd_AR = \''.$articolo.'\' AND Cd_MGEsercizio = SELECT YEAR(GETDATE()) AND Cd_ARLotto = \''.$lotto.'\' ORDER BY DataMov ASC , PartenzaArrivo Desc');
+            $lotto1 = DB::SELECT('SELECT * FROM MGMov WHERE Cd_AR = \''.$articolo.'\' AND Cd_MGEsercizio = YEAR(GETDATE()) AND Cd_ARLotto = \''.$lotto.'\' ORDER BY DataMov ASC , PartenzaArrivo Desc');
             $giacenza =DB::SELECT('SELECT SUM(QuantitaSign) as Giacenza,Cd_AR,Cd_MG,Cd_ARLotto FROM MGMov WHERE Cd_AR = \''.$articolo.'\' AND Cd_ARLotto = \''.$lotto.'\' GROUP BY Cd_AR,Cd_ARLotto,Cd_MG HAVING SUM(QuantitaSign)>0');
             foreach ($lotto1 as $l){?>
                 <li class="list-group-item">
@@ -494,7 +494,7 @@ class AjaxController extends Controller{
             where AR.CD_AR LIKE \''.$codice.'\' or ARAlias.Alias Like \''.$codice.'\'
             order by DORig.DataDoc DESC');
 
-        $magazzino_selected = DB::select('SELECT MgMov.Cd_MG, Mg.Descrizione from MGMov LEFT JOIN MG ON MG.Cd_MG = MgMov.Cd_MG WHERE MgMov.Cd_ARLotto = \''.$Cd_ARLotto.'\'  and MgMov.Cd_AR = \''.$codice.'\' and MgMov.Cd_MGEsercizio = SELECT YEAR(GETDATE()) ');
+        $magazzino_selected = DB::select('SELECT MgMov.Cd_MG, Mg.Descrizione from MGMov LEFT JOIN MG ON MG.Cd_MG = MgMov.Cd_MG WHERE MgMov.Cd_ARLotto = \''.$Cd_ARLotto.'\'  and MgMov.Cd_AR = \''.$codice.'\' and MgMov.Cd_MGEsercizio = YEAR(GETDATE()) ');
 
         if($magazzino_selected != null) {
             $magazzino_selected = $magazzino_selected[0];
