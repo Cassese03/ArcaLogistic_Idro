@@ -96,6 +96,9 @@ class HomeController extends Controller{
 
     public function modifica_articolo($id,Request $request){
 
+        if(!session()->has('utente')) {
+            return Redirect::to('login');
+        }
         if(is_numeric($id)) {
 
             $dati = $request->all();
@@ -281,6 +284,9 @@ class HomeController extends Controller{
 
     public function attivo(){
 
+        if(!session()->has('utente')) {
+            return Redirect::to('login');
+        }
         $documenti = DB::select('SELECT * FROM DO WHERE Cd_DO in (\'DDT\',\'LPL\',\'RCF\',\'PRV\') and CliFor = \'C\'');
         return View::make('attivo',compact('documenti'));
     }
@@ -469,16 +475,25 @@ class HomeController extends Controller{
 
     public function carico_magazzino(){
 
+        if(!session()->has('utente')) {
+            return Redirect::to('login');
+        }
         $documenti = DB::select('SELECT * FROM DO WHERE TipoDocumento in (\'O\',\'P\') and CliFor = \'C\'');
         return View::make('carico_magazzino',compact('documenti'));
     }
     public function carico_magazzino1($documenti){
 
 
+        if(!session()->has('utente')) {
+            return Redirect::to('login');
+        }
         return View::make('carico_magazzino1');
     }
 
     public function carico_magazzino2($documenti){
+        if(!session()->has('utente')) {
+            return Redirect::to('login');
+        }
         $fornitori = DB::select('SELECT TOP 10 * from CF where Id_CF in(SELECT r.Id_CF FROM DORig d,Cf r WHERE d.Cd_CF=r.Cd_CF and Cd_DO = \''.$documenti  .'\' and QtaEvadibile > \'0\' and Cd_MGEsercizio = YEAR(GETDATE()) group by r.Id_CF ) and Cliente=\'1\'');
         if(sizeof($fornitori) > 0) {
             $fornitore = $fornitori[0];
@@ -492,15 +507,23 @@ class HomeController extends Controller{
     }
 
     public function carico_magazzino02($documenti){
+        if(!session()->has('utente')) {
+            return Redirect::to('login');
+        }
         $fornitori = DB::select('SELECT TOP 10 * from CF where Id_CF in(SELECT r.Id_CF FROM DOTes d,Cf r WHERE d.Cd_CF = r.Cd_CF and Cd_DO = \''.$documenti  .'\' and RigheEvadibili > \'0\' and Cd_MGEsercizio =YEAR(GETDATE())  group by r.Id_CF ) and Fornitore=\'1\'');
         if(sizeof($fornitori) > 0) {
             $fornitore = $fornitori[0];
             return View::make('carico_magazzino02', compact('documenti','fornitori'));
         }
+        return View::make('carico_magazzino02', compact('documenti','fornitori'));
+
 
     }
 
     public function carico_magazzino3($id_fornitore,$cd_do){
+        if(!session()->has('utente')) {
+            return Redirect::to('login');
+        }
 
         $fornitori = DB::select('SELECT * from CF where Id_CF = '.$id_fornitore.' order by Id_CF desc');
         if(sizeof($fornitori) > 0) {
@@ -512,6 +535,9 @@ class HomeController extends Controller{
         }
     }
     public function carico_magazzino3_tot($id_fornitore,$cd_do){
+        if(!session()->has('utente')) {
+            return Redirect::to('login');
+        }
 
         $fornitori = DB::select('SELECT * from CF where Id_CF = '.$id_fornitore.' order by Id_CF desc');
         if(sizeof($fornitori) > 0) {
@@ -524,6 +550,9 @@ class HomeController extends Controller{
     }
 
     public function carico_magazzino03($id_fornitore,$cd_do){
+        if(!session()->has('utente')) {
+            return Redirect::to('login');
+        }
         $cond='';
         $fornitori = DB::select('SELECT * from CF where Id_CF = '.$id_fornitore.' order by Id_CF desc');
         if(sizeof($fornitori) > 0) {
@@ -540,6 +569,9 @@ class HomeController extends Controller{
         }
     }
     public function carico_magazzino03_tot($id_fornitore,$cd_do){
+        if(!session()->has('utente')) {
+            return Redirect::to('login');
+        }
         $cond = '';
         $fornitori = DB::select('SELECT * from CF where Id_CF = '.$id_fornitore.' order by Id_CF desc');
         if(sizeof($fornitori) > 0) {
