@@ -507,7 +507,7 @@ class AjaxController extends Controller{
 
         //TODO Controllare Data Scadenza togliere i commenti
         /*
-                $date = date('d/m/Y',strtotime('today')) ;
+                $date = date('Y/m/d',strtotime('today')) ;
 
                 IF($Cd_ARLotto!='0')
                     $lotto = DB::select('SELECT * FROM ARLotto WHERE Cd_AR = \'' . $codice . '\' and Cd_ARLotto !=\''.$Cd_ARLotto.'\' AND DataScadenza > \''.$date.'\' and Cd_ARLotto in (select Cd_ARLotto from MGMov group by Cd_ARLotto having SUM(QuantitaSign) >= 0)  ');
@@ -707,7 +707,7 @@ class AjaxController extends Controller{
             exit();
         }
         else {
-            $date = date('d/m/Y',strtotime('today')) ;
+            $date = date('Y/m/d',strtotime('today')) ;
             $controllo = DB::SELECT('SELECT * FROM DORIG WHERE Id_DORig = \''.$Id_DoRig.'\'')[0]->Id_DOTes;
             $controlli = DB::SELECT('SELECT * FROM DORIG WHERE Id_DOTes = \''.$controllo.'\'');
             foreach($controlli as $c){
@@ -849,7 +849,7 @@ class AjaxController extends Controller{
  */
     public function evadi_articolo2($Id_DoRig){
         $Id_DoTes = '';
-        $date = date('d/m/Y',strtotime('today')) ;
+        $date = date('Y/m/d',strtotime('today')) ;
         $controllo = DB::SELECT('SELECT * FROM DORIG WHERE Id_DORig in (\''.$Id_DoRig.'\')')[0]->Id_DOTes;
         $controlli = DB::SELECT('SELECT * FROM DORIG WHERE Id_DOTes = \''.$controllo.'\'');
         foreach($controlli as $c){
@@ -1351,7 +1351,9 @@ class AjaxController extends Controller{
     }
     public function salva($id_dotes){
         //DB::update("Update dotes set Modificabile = 0 where id_dotes = $id_dotes ");
-    }
+    
+        DB::statement("exec asp_DO_End $id_dotes");
+	}
     public function invia_mail($id_dotes,$id_dorig,$testo){
         if($id_dorig=='1') {
             if (substr($testo, 0, 2) == '01') {

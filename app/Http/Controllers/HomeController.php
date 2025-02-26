@@ -729,7 +729,7 @@ class HomeController extends Controller{
         $cd_do = DB::select('SELECT * from DOTes where Id_DoTes  in ('.$id_dotes.')')[0]->Cd_Do;
         if(sizeof($fornitori) > 0){
             $fornitore = $fornitori[0];
-            $date = date('d/m/Y',strtotime('today')) ;
+            $date = date('Y/m/d',strtotime('today')) ;
             foreach($documenti as $documento)
                 $documento->righe = DB::select('SELECT * from DORig where Id_DoTes in ('.$id_dotes.') and Qta > \'0\' ORDER BY TimeIns DESC');
 
@@ -790,7 +790,7 @@ class HomeController extends Controller{
         $cd_do = DB::select('SELECT * from DOTes where Id_DoTes  in ('.$id_dotes.')')[0]->Cd_Do;
         if(sizeof($fornitori) > 0){
             $fornitore = $fornitori[0];
-            $date = date('d/m/Y',strtotime('today')) ;
+            $date = date('Y/m/d',strtotime('today')) ;
             foreach($documenti as $documento)
                 $documento->righe = DB::select('SELECT * from DORig where Id_DoTes in ('.$id_dotes.') and Qta > \'0\'  ORDER BY TimeIns DESC');
 
