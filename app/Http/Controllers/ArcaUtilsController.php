@@ -19,7 +19,7 @@ class ArcaUtilsController extends Controller{
 
 
     /**
-     * Aggiunge un prodotto con quantita 1 se è già presente aumenta la quantità di 1
+     * Aggiunge un prodotto con quantita 1 se ?? gi?? presente aumenta la quantit?? di 1
      * @param $id_ordine
      * @return \Illuminate\Contracts\View\View
      */
@@ -511,7 +511,7 @@ class ArcaUtilsController extends Controller{
     }
 
     /**
-     * Diminuisce di 1 la quantità di una riga, se la quantità è 1 elimina la riga
+     * Diminuisce di 1 la quantit?? di una riga, se la quantit?? ?? 1 elimina la riga
      * @param $id_ordine
      * @return \Illuminate\Contracts\View\View
      */
@@ -553,7 +553,7 @@ class ArcaUtilsController extends Controller{
     }
 
     /**
-     * Diminuisce di 1 la quantità di una riga, se la quantità è 1 elimina la riga
+     * Diminuisce di 1 la quantit?? di una riga, se la quantit?? ?? 1 elimina la riga
      * @param $id_ordine
      * @return \Illuminate\Contracts\View\View
      */
@@ -584,7 +584,7 @@ class ArcaUtilsController extends Controller{
 
 
     /**
-     * Diminuisce di 1 la quantità di una riga, se la quantità è 1 elimina la riga
+     * Diminuisce di 1 la quantit?? di una riga, se la quantit?? ?? 1 elimina la riga
      * @param $id_ordine
      * @return \Illuminate\Contracts\View\View
      */
