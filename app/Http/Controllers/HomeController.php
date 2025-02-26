@@ -529,7 +529,7 @@ class HomeController extends Controller{
         if(sizeof($fornitori) > 0) {
             $fornitore = $fornitori[0];
             $documenti = DB::select(' SELECT TOP 10 * from DOTes where Cd_CF = \''.$fornitore->Cd_CF.'\' and Cd_DO = \''.$cd_do.'\' and RigheEvadibili > \'0\' order by Id_DOTes DESC');
-            $numero_documento = DB::select('SELECT MAX(numeroDoc)+1 as num from DOTes WHERE Cd_MGEsercizio = YEAR(GETDATE()) and Cd_DO = \''.$cd_do.'\' ')[0]->num;
+            $numero_documento = DB::select('SELECT MAX(numeroDocI)+1 as num from DOTes WHERE Cd_MGEsercizio = YEAR(GETDATE()) and Cd_DO in (SELECT Cd_DO from do where cd_cn  in (SELECT Cd_CN FROM DO where Cd_Do = \''.$cd_do.'\' )) ')[0]->num;
             return View::make('carico_magazzino3',compact('fornitore','documenti','cd_do','numero_documento'));
 
         }
@@ -543,7 +543,7 @@ class HomeController extends Controller{
         if(sizeof($fornitori) > 0) {
             $fornitore = $fornitori[0];
             $documenti = DB::select('SELECT * from DOTes where Cd_CF = \''.$fornitore->Cd_CF.'\' and Cd_DO = \''.$cd_do.'\' and RigheEvadibili > \'0\' order by Id_DOTes DESC');
-            $numero_documento = DB::select('SELECT MAX(numeroDoc)+1 as num from DOTes WHERE Cd_MGEsercizio = YEAR(GETDATE()) and Cd_DO = \''.$cd_do.'\'  ')[0]->num;
+            $numero_documento = DB::select('SELECT MAX(numeroDocI)+1 as num from DOTes WHERE Cd_MGEsercizio = YEAR(GETDATE()) and Cd_DO in (SELECT Cd_DO from do where cd_cn  in (SELECT Cd_CN FROM DO where Cd_Do = \''.$cd_do.'\' ))  ')[0]->num;
             return View::make('carico_magazzino3_tot',compact('fornitore','documenti','cd_do','numero_documento'));
 
         }
@@ -558,7 +558,7 @@ class HomeController extends Controller{
         if(sizeof($fornitori) > 0) {
             $fornitore = $fornitori[0];
             $documenti = DB::select('SELECT TOP 10 [Id_DoTes],[NumeroDoc],[DataDoc],[NumeroDocRif],[DataDocRif]  from DOTes where Cd_CF = \''.$fornitore->Cd_CF.'\' and Cd_DO = \''.$cd_do.'\' AND  DATEDIFF(DAY,GETDATE(),TimeIns) > -7 order by Id_DOTes DESC');
-            $numero_documento = DB::select('SELECT MAX(numeroDoc)+1 as num from DOTes WHERE Cd_MGEsercizio = YEAR(GETDATE()) and Cd_DO = \''.$cd_do.'\'')[0]->num;
+            $numero_documento = DB::select('SELECT MAX(numeroDocI)+1 as num from DOTes WHERE Cd_MGEsercizio = YEAR(GETDATE()) and Cd_DO in (SELECT Cd_DO from do where cd_cn  in (SELECT Cd_CN FROM DO where Cd_Do = \''.$cd_do.'\' ))')[0]->num;
             $dodo = DB::SELECT('select * from DODOPrel where Cd_DO = \''.$cd_do.'\'');
             foreach ($dodo as $d){
                 $cond .=', \''.$d->Cd_DO_Prelevabile.'\' ';
@@ -577,7 +577,7 @@ class HomeController extends Controller{
         if(sizeof($fornitori) > 0) {
             $fornitore = $fornitori[0];
             $documenti = DB::select('SELECT * from DOTes where Cd_CF = \''.$fornitore->Cd_CF.'\' and Cd_DO = \''.$cd_do.'\' AND  DATEDIFF(DAY,GETDATE(),TimeIns) > -7 order by Id_DOTes DESC');
-            $numero_documento = DB::select('SELECT MAX(numeroDoc)+1 as num from DOTes WHERE Cd_MGEsercizio = YEAR(GETDATE()) and Cd_DO = \''.$cd_do.'\' ')[0]->num;
+            $numero_documento = DB::select('SELECT MAX(numeroDocI)+1 as num from DOTes WHERE Cd_MGEsercizio = YEAR(GETDATE()) and Cd_DO in (SELECT Cd_DO from do where cd_cn  in (SELECT Cd_CN FROM DO where Cd_Do = \''.$cd_do.'\' )) ')[0]->num;
             $dodo = DB::SELECT('select * from DODOPrel where Cd_DO = \''.$cd_do.'\'');
             foreach ($dodo as $d){
                 $cond .=', \''.$d->Cd_DO_Prelevabile.'\' ';
